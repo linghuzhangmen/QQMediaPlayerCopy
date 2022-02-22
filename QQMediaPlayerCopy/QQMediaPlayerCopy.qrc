@@ -1,0 +1,49 @@
+<RCC>
+    <qresource prefix="/titleBar">
+        <file>resources/titleBar/down_arrow.svg</file>
+        <file>resources/titleBar/up_arrow.svg</file>
+        <file>resources/titleBar/close.svg</file>
+        <file>resources/titleBar/close_hover.svg</file>
+        <file>resources/titleBar/max.svg</file>
+        <file>resources/titleBar/max_hover.svg</file>
+        <file>resources/titleBar/min.svg</file>
+        <file>resources/titleBar/min_hover.svg</file>
+        <file>resources/titleBar/minimode.svg</file>
+        <file>resources/titleBar/minimode_hover.svg</file>
+        <file>resources/titleBar/settop.svg</file>
+        <file>resources/titleBar/settop_hover.svg</file>
+    </qresource>
+    <qresource prefix="/playCtrlBar">
+        <file>resources/playctrlBar/effect.svg</file>
+        <file>resources/playctrlBar/effect_hover.svg</file>
+        <file>resources/playctrlBar/fullscreen.svg</file>
+        <file>resources/playctrlBar/fullscreen_hover.svg</file>
+        <file>resources/playctrlBar/next.svg</file>
+        <file>resources/playctrlBar/next_hover.svg</file>
+        <file>resources/playctrlBar/pause.svg</file>
+        <file>resources/playctrlBar/pause_hover.svg</file>
+        <file>resources/playctrlBar/play.svg</file>
+        <file>resources/playctrlBar/play_hover.svg</file>
+        <file>resources/playctrlBar/pre.svg</file>
+        <file>resources/playctrlBar/pre_hover.svg</file>
+        <file>resources/playctrlBar/stop.svg</file>
+        <file>resources/playctrlBar/stop_hover.svg</file>
+        <file>resources/playctrlBar/toolbox.svg</file>
+        <file>resources/playctrlBar/toolbox_hover.svg</file>
+        <file>resources/playctrlBar/audio_open.svg</file>
+        <file>resources/playctrlBar/audio_open_hover.svg</file>
+    </qresource>
+    <qresource prefix="/videoWidget">
+        <file>resources/videoWidget/openfile.svg</file>
+        <file>resources/videoWidget/openfile_hover.svg</file>
+        <file>resources/videoWidget/vline.svg</file>
+        <file>resources/videoWidget/down_arrow_16px.svg</file>
+        <file>resources/videoWidget/left_arrow.svg</file>
+        <file>resources/videoWidget/left_arrow_hover.svg</file>
+        <file>resources/videoWidget/right_arrow.svg</file>
+        <file>resources/videoWidget/right_arrow_hover.svg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>resources/logo.png</file>
+    </qresource>
+</RCC>
