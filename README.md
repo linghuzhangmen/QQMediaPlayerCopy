@@ -12,7 +12,9 @@ win11/win10  vs2019 Qt5.15.2
 build  x64
 
 # 编译方法
-vs2019打开QQMediaPlayerCopy.sln 右键项目属性---> Qt ---> change qt version build
+vs2019打开QQMediaPlayerCopy.sln 右键项目属性---> Qt ---> 如下图
+![qqq](https://user-images.githubusercontent.com/42860254/159120393-2b091a49-4058-493d-8dfb-1b086aec4295.png)
+
 
 # 开发环境安装
 VS2019 Qt开发环境的配置可以参考这篇博客：https://mingshiqiang.blog.csdn.net/article/details/108015209
