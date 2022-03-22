@@ -35,14 +35,14 @@ COpenFileButton::COpenFileButton(QWidget* p) : QWidget(p)
 	m_pArrowButton = new QPushButton(this);
 	m_pArrowButton->setFixedSize(RIGHT_BUTTON_WIDTH, BUTTON_HEIGHT);
 
-	QString button_qss = "QPushButton::menu-indicator:open{"
+	/*QString button_qss = "QPushButton::menu-indicator:open{"
 		"image:url(:/titleBar/resources/titleBar/down_arrow.svg);"
 		"subcontrol-position:right center;"
 		"subcontrol-origin:padding;border:none;}"
 		"QPushButton::menu-indicator:closed{"
 		"image:url(:/titleBar/resources/titleBar/up_arrow.svg);"
 		"subcontrol-position:right center;"
-		"subcontrol-origin:padding;border:none;}";
+		"subcontrol-origin:padding;border:none;}";*/
 
 	QString qssRight = "QPushButton{"
 		"background-image: url(:/videoWidget/resources/videoWidget/vline.svg);"

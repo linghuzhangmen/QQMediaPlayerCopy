@@ -51,7 +51,6 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 	pHLay->addSpacing(3);
 	pHLay->addWidget(m_pCurPlayTimeLabel);
 	pHLay->addSpacing(1);
-	pHLay->addSpacing(1);
 	pHLay->addWidget(m_pTotalTimeLabel);
 	pHLay->addStretch();
 	pHLay->addWidget(m_pPlayButtonGroupWidget);
