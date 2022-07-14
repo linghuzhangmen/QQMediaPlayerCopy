@@ -1,3 +1,7 @@
+# 更新说明
+2022-07-14
+项目开发环境更新到vs2022 qt6.3, 不影响vs2019 qt5.15.2以下版本的编译
+
 # QQMediaPlayerCopy
 
 C++ Qt FFmpeg SDL高仿Windows端QQ影音视频播放器, 界面如下
