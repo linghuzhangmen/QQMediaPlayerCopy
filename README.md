@@ -1,5 +1,6 @@
 # 更新说明
 2022-07-14
+<br/>
 项目开发环境更新到vs2022 qt6.3, 不影响vs2019 qt5.15.2以下版本的编译
 
 # QQMediaPlayerCopy项目介绍
@@ -16,17 +17,19 @@ win11/win10  vs2019 Qt5.15.2
 build  x64
 <br/>
 # 分支说明
-<br/>
 player_SDL分支使用SDL FFmpeg做解码转换播放
 
 # 编译方法
 1 vs2019打开QQMediaPlayerCopy.sln 右键项目属性---> Qt ---> 如下图
 ![qqq](https://user-images.githubusercontent.com/42860254/159120393-2b091a49-4058-493d-8dfb-1b086aec4295.png)
 <br/>
+<br/>
 2 下载依赖的sdk
 <br/>
 链接：https://pan.baidu.com/s/10uXf3976ihfZyyLrrTtGOA 
+<br/>
 提取码：hmhn
+<br/>
 下载后，解压，将sdk_package放到QQMediaPlayerCopy.vcxproj同级目录
 
 
