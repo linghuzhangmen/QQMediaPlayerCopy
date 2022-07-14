@@ -13,6 +13,7 @@ QQÈº£º894097803
 
 #include <QtWidgets/QWidget>
 #include "ui_QQMediaPlayerCopy.h"
+#include "CFrameLessWidgetBase.h"
 #include "CTitleBar.h"
 #include "CPlayCtrlBar.h"
 #include "VideoWidget.h"
@@ -62,7 +63,7 @@ struct ST_ABUF
 };
 
 
-class QQMediaPlayerCopy : public QWidget
+class QQMediaPlayerCopy : public CFrameLessWidgetBase
 {
     Q_OBJECT
 
@@ -70,7 +71,6 @@ public:
     QQMediaPlayerCopy(QWidget *parent = Q_NULLPTR);
 
 private:
-	bool nativeEvent(const QByteArray& eventType, void* message, long* result) override;
 	void keyPressEvent(QKeyEvent* event) override;
 	void play(const std::string& _fileName);
 	
@@ -139,7 +139,6 @@ private:
 	CPlayCtrlBar*    m_pPlayCtrlBar = nullptr;
 	VideoWidget*     m_pVideoWidget = nullptr;
 	CPlayListWidget* m_pPlaylistWidget = nullptr;
-	int           m_nBorderWidth = 5;  
 	bool          m_bPlaylistIsOpen = false;
 	QStringListModel* m_pStringListModel = nullptr;
 	std::string        m_curPlayFileName;

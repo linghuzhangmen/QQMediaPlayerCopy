@@ -75,8 +75,8 @@ COpenFileButton::COpenFileButton(QWidget* p) : QWidget(p)
 	QMenu* pMenu = new QMenu(this);
 	pMenu->setStyleSheet(menu_qss);
 	pMenu->setFixedWidth(m_totalWidth);
-	QAction* pAc1 = new QAction(u8"打开文件", this);
-	QAction* pAc2 = new QAction(u8"打开文件夹", this);
+	QAction* pAc1 = new QAction(u8"open file", this);
+	QAction* pAc2 = new QAction(u8"open floder", this);
 	pMenu->addAction(pAc1);
 	pMenu->addAction(pAc2);
 	m_pArrowButton->setMenu(pMenu);
@@ -84,7 +84,11 @@ COpenFileButton::COpenFileButton(QWidget* p) : QWidget(p)
 
 	QHBoxLayout* pHLay = new QHBoxLayout(this);
 	pHLay->addWidget(m_pOpenFileButton);
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
+	//pHLay->setMargin(3);
+#else
 	pHLay->setMargin(3);
+#endif
 	pHLay->addWidget(m_pArrowButton);
 	pHLay->setContentsMargins(0, 0, 0, 0);
 

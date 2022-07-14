@@ -1,3 +1,5 @@
+#pragma execution_character_set("utf-8")
+
 #include "QQMediaPlayerCopy.h"
 #include <QHBoxLayout>
 #include <QMessageBox>
@@ -7,15 +9,6 @@
 #include <QTimer>
 #include <QDebug>
 #include <QStringListModel>
-
-#ifdef Q_OS_WIN
-#include <qt_windows.h>
-#include <Windows.h>
-#include <windowsx.h>
-#endif
-
-#pragma comment(lib, "user32.lib")
-#pragma comment(lib, "dwmapi.lib")
 
 using namespace std;
 
@@ -31,13 +24,11 @@ string qstr2str(const QString& qstr)
 }
 
 QQMediaPlayerCopy::QQMediaPlayerCopy(QWidget *parent)
-    : QWidget(parent)
+    : CFrameLessWidgetBase(parent)
 {
     ui.setupUi(this);
 
-	setWindowFlags(Qt::FramelessWindowHint);
 	setStyleSheet("QWidget{background-color:rgb(17,17,17);}");
-	setMouseTracking(true);
 
 	QVBoxLayout* pVLay = new QVBoxLayout(this);
 
@@ -54,7 +45,7 @@ QQMediaPlayerCopy::QQMediaPlayerCopy(QWidget *parent)
 	pVLay->addLayout(pHLay);
 
 	pVLay->addWidget(m_pPlayCtrlBar);
-	pVLay->setContentsMargins(5, 5, 5, 5);
+	pVLay->setContentsMargins(0, 0, 0, 0);
 	setLayout(pVLay);
 
 	m_pPlaylistWidget->hide();  //播放列表默认隐藏
@@ -111,62 +102,6 @@ void QQMediaPlayerCopy::on_openFile(const QStringList& fileList)
 	// 默认播放第一个文件
 	string _fileName = qstr2str(fileList[0]);
 	play(_fileName);
-}
-
-bool QQMediaPlayerCopy::nativeEvent(const QByteArray& eventType, void* message, long* result)
-{
-	Q_UNUSED(eventType)
-
-	MSG* param = static_cast<MSG*>(message);
-
-	if (!this->isFullScreen())
-	{
-		switch (param->message)
-		{
-		case WM_NCHITTEST:
-		{
-			int nX = GET_X_LPARAM(param->lParam) - this->geometry().x();
-			int nY = GET_Y_LPARAM(param->lParam) - this->geometry().y();
-
-			// 如果鼠标位于子控件上，则不进行处理
-			if (childAt(nX, nY) != nullptr)
-				return QWidget::nativeEvent(eventType, message, result);
-
-			// 鼠标区域位于窗体边框，进行缩放
-			if ((nX > 0) && (nX < m_nBorderWidth))
-				*result = HTLEFT;
-
-			if ((nX > this->width() - m_nBorderWidth) && (nX < this->width()))
-				*result = HTRIGHT;
-
-			if ((nY > 0) && (nY < m_nBorderWidth))
-				*result = HTTOP;
-
-			if ((nY > this->height() - m_nBorderWidth) && (nY < this->height()))
-				*result = HTBOTTOM;
-
-			if ((nX > 0) && (nX < m_nBorderWidth) && (nY > 0)
-				&& (nY < m_nBorderWidth))
-				*result = HTTOPLEFT;
-
-			if ((nX > this->width() - m_nBorderWidth) && (nX < this->width())
-				&& (nY > 0) && (nY < m_nBorderWidth))
-				*result = HTTOPRIGHT;
-
-			if ((nX > 0) && (nX < m_nBorderWidth)
-				&& (nY > this->height() - m_nBorderWidth) && (nY < this->height()))
-				*result = HTBOTTOMLEFT;
-
-			if ((nX > this->width() - m_nBorderWidth) && (nX < this->width())
-				&& (nY > this->height() - m_nBorderWidth) && (nY < this->height()))
-				*result = HTBOTTOMRIGHT;
-
-			return true;
-		}
-		}
-	}
-
-	return QWidget::nativeEvent(eventType, message, result);
 }
 
 void QQMediaPlayerCopy::keyPressEvent(QKeyEvent* event)
@@ -238,7 +173,7 @@ void QQMediaPlayerCopy::play(const std::string& _fileName)
 	m_pvCodec = avcodec_find_decoder(m_pVideoCodecCtxOrg->codec_id);
 	if (!m_pvCodec)
 	{
-		QMessageBox::information(this, u8"提示", u8"查找视频解码器失败");
+		QMessageBox::information(this, "Warn", u8"find video decoder failed");
 		return;
 	}
 

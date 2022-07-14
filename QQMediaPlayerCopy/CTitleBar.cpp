@@ -48,10 +48,10 @@ CTitleBar::CTitleBar(QWidget *parent)
 	QMenu* pMenu = new QMenu(this);
 	pMenu->setStyleSheet(menu_qss);
 
-	QAction* pAc1 = new QAction(u8"打开文件", this);
-	QAction* pAc2 = new QAction(u8"打开文件夹", this);
-	QAction* pAc3 = new QAction(u8"开发说明", this);
-	QAction* pAc4 = new QAction(u8"退出", this);
+	QAction* pAc1 = new QAction(u8"open file", this);
+	QAction* pAc2 = new QAction(u8"open floder", this);
+	QAction* pAc3 = new QAction(u8"about", this);
+	QAction* pAc4 = new QAction(u8"exit", this);
 
 	pMenu->addAction(pAc1);
 	pMenu->addAction(pAc2);
@@ -115,7 +115,8 @@ int CTitleBar::getHeight()
 void CTitleBar::paintEvent(QPaintEvent* event)
 {
 	QStyleOption opt;
-	opt.init(this);
+	//opt.init(this);
+	opt.initFrom(this);
 	QPainter p(this);
 	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 	QWidget::paintEvent(event);
