@@ -17,7 +17,7 @@ COpenFileButton::COpenFileButton(QWidget* p) : QWidget(p)
 	m_totalWidth = LEFT_BUTTON_WIDTH + RIGHT_BUTTON_WIDTH;
 
 	m_pOpenFileButton = new QPushButton(this);
-	m_pOpenFileButton->setText(u8"打开文件");
+	m_pOpenFileButton->setText(tr("open file"));
 	m_pOpenFileButton->setFixedSize(LEFT_BUTTON_WIDTH, BUTTON_HEIGHT);
 
 	QString qssLeft = "QPushButton{"
@@ -75,8 +75,8 @@ COpenFileButton::COpenFileButton(QWidget* p) : QWidget(p)
 	QMenu* pMenu = new QMenu(this);
 	pMenu->setStyleSheet(menu_qss);
 	pMenu->setFixedWidth(m_totalWidth);
-	QAction* pAc1 = new QAction(u8"open file", this);
-	QAction* pAc2 = new QAction(u8"open floder", this);
+	QAction* pAc1 = new QAction(tr("open file"), this);
+	QAction* pAc2 = new QAction(tr("open floder"), this);
 	pMenu->addAction(pAc1);
 	pMenu->addAction(pAc2);
 	m_pArrowButton->setMenu(pMenu);
@@ -84,11 +84,8 @@ COpenFileButton::COpenFileButton(QWidget* p) : QWidget(p)
 
 	QHBoxLayout* pHLay = new QHBoxLayout(this);
 	pHLay->addWidget(m_pOpenFileButton);
-#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
-	//pHLay->setMargin(3);
-#else
-	pHLay->setMargin(3);
-#endif
+	pHLay->setSpacing(3);
+
 	pHLay->addWidget(m_pArrowButton);
 	pHLay->setContentsMargins(0, 0, 0, 0);
 
@@ -157,9 +154,9 @@ void COpenFileButton::on_openfile()
 	//可以同时打开多个文件
 	QStringList filelist = QFileDialog::getOpenFileNames(
 		this, 
-		u8"选择要播放的文件",
+		tr("select video file"),
 		lastPath,
-		u8"视频文件 (*.flv *.rmvb *.avi *.mp4);; 所有文件 (*.*);; ");
+		tr("video file (*.flv *.rmvb *.avi *.mp4);; all files(*.*);; "));
 
 	/*for (int i = 0; i < flielist.size(); i++)
 	{
@@ -182,7 +179,7 @@ void COpenFileButton::on_openfile()
 
 void COpenFileButton::on_openFloder()
 {
-	QString path = QFileDialog::getExistingDirectory(this, "choose src Directory", "/");
+	QString path = QFileDialog::getExistingDirectory(this, tr("choose video directory"), "/");
 
 	if (path.isEmpty())
 	{

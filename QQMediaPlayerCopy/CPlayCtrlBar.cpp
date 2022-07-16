@@ -4,7 +4,6 @@
 CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 	: QWidget(parent)
 {
-	ui.setupUi(this);
 	setAttribute(Qt::WA_StyledBackground);  // 禁止父窗口样式影响子控件样式
 
 	setFixedHeight(80);
@@ -27,24 +26,25 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 	m_pPlayButtonGroupWidget = new CPlayButtonGroupWidget(this);
 
 	m_pToolBoxButton = new QPushButton(this);
-	m_pToolBoxButton->setText("1");
+	m_pToolBoxButton->setText("");
 	m_pToolBoxButton->setFixedSize(32, 32);
 	m_pToolBoxButton->setStyleSheet("QPushButton{background-image:url(:/playCtrlBar/resources/playctrlBar/toolbox.svg);border:none;}"
-		"QPushButton:hover{background-image:url(:/playCtrlBar/resources/playctrlBar/toolbox_hover.svg);border:none;}"
+		"QPushButton:hover{background-color:rgb(99, 99, 99);background-image:url(:/playCtrlBar/resources/playctrlBar/toolbox_hover.svg);border:none;}"
 		"QPushButton:pressed{background-image:url(:/playCtrlBar/resources/playctrlBar/toolbox.svg);border:none;}");
 
 	m_pEffectButton = new QPushButton(this);
-	m_pEffectButton->setText("2");
+	m_pEffectButton->setText("");
 	m_pEffectButton->setFixedSize(32, 32);
 	m_pEffectButton->setStyleSheet("QPushButton{background-image:url(:/playCtrlBar/resources/playctrlBar/effect.svg);border:none;}"
-		"QPushButton:hover{background-image:url(:/playCtrlBar/resources/playctrlBar/effect_hover.svg);border:none;}"
+		"QPushButton:hover{background-color:rgb(99, 99, 99);background-image:url(:/playCtrlBar/resources/playctrlBar/effect_hover.svg);border:none;}"
 		"QPushButton:pressed{background-image:url(:/playCtrlBar/resources/playctrlBar/effect.svg);border:none;}");
 
 	m_pFullscreenButton = new QPushButton(this);
-	m_pFullscreenButton->setText("3");
+	m_pFullscreenButton->setText("");
 	m_pFullscreenButton->setFixedSize(32, 32);
+	
 	m_pFullscreenButton->setStyleSheet("QPushButton{background-image:url(:/playCtrlBar/resources/playctrlBar/fullscreen.svg);border:none;}"
-		"QPushButton:hover{background-image:url(:/playCtrlBar/resources/playctrlBar/fullscreen_hover.svg);border:none;}"
+		"QPushButton:hover{background-color:rgb(99, 99, 99);background-image:url(:/playCtrlBar/resources/playctrlBar/fullscreen_hover.svg);border:none;}"
 		"QPushButton:pressed{background-image:url(:/playCtrlBar/resources/playctrlBar/fullscreen.svg);border:none;}");
 
 	QHBoxLayout* pHLay = new QHBoxLayout(this);

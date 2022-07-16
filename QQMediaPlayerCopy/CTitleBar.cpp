@@ -1,125 +1,124 @@
 #include "CTitleBar.h"
+#include <QHBoxLayout>
 #include <QStyleOption>
 #include <QPainter>
 #include <QMenu>
 #include <QMouseEvent>
+#include "qss.h"
+#include <Windows.h>
 
-#ifdef Q_OS_WIN
 #include <qt_windows.h>
 #pragma comment(lib, "user32.lib")
-#endif
 
-static const int TITLEBAR_FEXED_HEIGHT = 50;
 
 
 
 CTitleBar::CTitleBar(QWidget *parent)
 	: QWidget(parent)
 {
-	ui.setupUi(this);
-	setStyleSheet("QWidget{background-color:rgb(17,17,17);}");
-
-	this->setFixedHeight(TITLEBAR_FEXED_HEIGHT);
-
-	QString logo_button_qss = "QPushButton{font-family:Microsoft YaHei;font-size:18px; color:rgb(255,255,255);}"
-		"QPushButton::menu-indicator:open{"
-		"image:url(:/titleBar/resources/titleBar/down_arrow.svg);"
-		"subcontrol-position:right center;"
-		"subcontrol-origin:padding;border:none;}"
-		"QPushButton::menu-indicator:closed{"
-		"image:url(:/titleBar/resources/titleBar/up_arrow.svg);"
-		"subcontrol-position:right center;"
-		"subcontrol-origin:padding;border:none;}";
-
-	QString menu_qss = "QMenu{background-color:rgb(253,253,253);}"
-		"QMenu::item{"
-		"font:16px;"
-		"background-color:rgb(253,253,253);"
-		"padding:8px 32px;"
-		"margin:0px 8px;"
-		"border-bottom:1px solid #DBDBDB;}"
-		/*选择项设置*/
-		"QMenu::item:selected{background-color: #FFF8DC;}";
-
-	ui.btnLogo->setText(u8"QQ影音");
-	ui.btnLogo->setFlat(true);
-	ui.btnLogo->setFixedSize(120, 34);
-
-	QMenu* pMenu = new QMenu(this);
-	pMenu->setStyleSheet(menu_qss);
-
-	QAction* pAc1 = new QAction(u8"open file", this);
-	QAction* pAc2 = new QAction(u8"open floder", this);
-	QAction* pAc3 = new QAction(u8"about", this);
-	QAction* pAc4 = new QAction(u8"exit", this);
-
-	pMenu->addAction(pAc1);
-	pMenu->addAction(pAc2);
-	pMenu->addAction(pAc3);
-	pMenu->addAction(pAc4);
-
-	ui.btnLogo->setStyleSheet(logo_button_qss);
-	ui.btnLogo->setMenu(pMenu);
-
-	ui.btnMinimode->setFixedSize(32, 32);
-	ui.btnMinimode->setText("");
-	ui.btnMinimode->setFlat(true);
-	ui.btnMinimode->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/minimode.svg);brder:none}"
-		"QPushButton:hover{"
-		"background-image:url(:/titleBar/resources/titleBar/minimode_hover.svg);border:none;}");
-
-	ui.btnSettop->setFixedSize(32, 32);
-	ui.btnSettop->setText("");
-	ui.btnSettop->setFlat(true);
-	ui.btnSettop->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/settop.svg);brder:none}"
-		"QPushButton:hover{"
-		"background-image:url(:/titleBar/resources/titleBar/settop_hover.svg);border:none;}");
-
-	ui.btnMin->setFixedSize(32, 32);
-	ui.btnMin->setText("");
-	ui.btnMin->setFlat(true);
-	ui.btnMin->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/min.svg);brder:none}"
-		"QPushButton:hover{"
-		"background-image:url(:/titleBar/resources/titleBar/min_hover.svg);border:none;}");
-
-	ui.btnMax->setFixedSize(32, 32);
-	ui.btnMax->setText("");
-	ui.btnMax->setFlat(true);
-	ui.btnMax->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/max.svg);brder:none}"
-		"QPushButton:hover{"
-		"background-image:url(:/titleBar/resources/titleBar/max_hover.svg);border:none;}");
-
-	ui.btnClose->setFixedSize(32, 32);
-	ui.btnClose->setText("");
-	ui.btnClose->setFlat(true);
-	ui.btnClose->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/close.svg);brder:none}"
-		"QPushButton:hover{"
-		"background-image:url(:/titleBar/resources/titleBar/close_hover.svg);border:none;}");
-
-	connect(ui.btnMinimode, SIGNAL(clicked(bool)), this, SLOT(on_Clicked()));
-	connect(ui.btnSettop, SIGNAL(clicked(bool)), this, SLOT(on_Clicked()));
-	connect(ui.btnMin, SIGNAL(clicked(bool)), this, SLOT(on_Clicked()));
-	connect(ui.btnMax, SIGNAL(clicked(bool)), this, SLOT(on_Clicked()));
-	connect(ui.btnClose, SIGNAL(clicked(bool)), this, SLOT(on_Clicked()));
+	this->setAttribute(Qt::WA_DeleteOnClose);
+	setMouseTracking(true);
+	initUI();
 }
 
 CTitleBar::~CTitleBar()
 {
 }
 
-int CTitleBar::getHeight()
+void CTitleBar::setFileNameLabelText(QString name)
 {
-	return TITLEBAR_FEXED_HEIGHT;
+	m_pFileNameLabel->show();
+	m_pFileNameLabel->setText(name);
 }
 
-void CTitleBar::paintEvent(QPaintEvent* event)
+void CTitleBar::initUI()
 {
-	QStyleOption opt;
-	//opt.init(this);
-	opt.initFrom(this);
-	QPainter p(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-	QWidget::paintEvent(event);
+	//禁止父窗口影响子窗口样式
+	setAttribute(Qt::WA_StyledBackground);
+	this->setFixedHeight(32 + 5 * 2);
+	this->setStyleSheet("background-color:rgb(54,54,54)");
+
+	m_pLogoBtn = new QPushButton(this);
+	m_pLogoBtn->setMinimumWidth(138);
+	m_pLogoBtn->setText("Media Player");
+	m_pLogoBtn->setStyleSheet(QString::fromStdString(logo_button_qss));
+
+	QMenu* pMenu = new QMenu(this);
+	pMenu->setStyleSheet(QString::fromStdString(menu_qss));
+
+	QAction* pAc1 = new QAction("open file", this);
+	QAction* pAc2 = new QAction("open floder", this);
+	QAction* pAc3 = new QAction("about", this);
+	QAction* pAc4 = new QAction("exit", this);
+
+	pMenu->addAction(pAc1);
+	pMenu->addAction(pAc2);
+	pMenu->addAction(pAc3);
+	pMenu->addAction(pAc4);
+
+	m_pLogoBtn->setMenu(pMenu);
+
+	m_pFileNameLabel = new QLabel(this);
+	m_pFileNameLabel->setMinimumWidth(60);
+	m_pFileNameLabel->setAlignment(Qt::AlignCenter);
+	m_pFileNameLabel->hide();  // 视频文件标题，默认隐藏
+	m_pFileNameLabel->setStyleSheet("QLabel{font-family:Microsoft YaHei; \
+		font-size:14px;color:#FFFFFF;background-color:#363636;}");
+
+	m_pMinimodeBtn = new QPushButton(this);
+	m_pMinimodeBtn->setObjectName("m_pMinimodeBtn");
+	m_pMinimodeBtn->setText("");
+	m_pMinimodeBtn->setFixedSize(32, 32);
+	m_pMinimodeBtn->setStyleSheet(QString::fromStdString(minimode_qss));
+
+	m_pSettopBtn = new QPushButton(this);
+	m_pSettopBtn->setObjectName("m_pSettopBtn");
+	m_pSettopBtn->setText("");
+	m_pSettopBtn->setFixedSize(32, 32);
+	m_pSettopBtn->setStyleSheet(QString::fromStdString(settop_qss));
+
+	m_pMinBtn = new QPushButton(this);
+	m_pMinBtn->setFixedSize(32, 32);
+	m_pMinBtn->setStyleSheet(QString::fromStdString(min_qss));
+
+	m_pMaxBtn = new QPushButton(this);
+	m_pMaxBtn->setObjectName("m_pMaxBtn");
+	m_pMaxBtn->setText("");
+	m_pMaxBtn->setFixedSize(32, 32);
+	m_pMaxBtn->setStyleSheet(QString::fromStdString(max_qss));
+
+	m_pCloseBtn = new QPushButton(this);
+	m_pCloseBtn->setFixedSize(32, 32);
+	m_pCloseBtn->setStyleSheet(QString::fromStdString(close_qss));
+
+	QHBoxLayout* pHlay = new QHBoxLayout(this);
+	pHlay->addWidget(m_pLogoBtn);
+	//pHlay->addWidget(m_pFileNameLabel, Qt::AlignCenter); // 这种不是那么得居中，直接用move方法设置居中
+	pHlay->addStretch(1);
+	pHlay->addWidget(m_pMinimodeBtn);
+	QSpacerItem* pItem = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
+	pHlay->addSpacerItem(pItem);
+
+	pHlay->addWidget(m_pSettopBtn);
+	QSpacerItem* pItem1 = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
+	pHlay->addSpacerItem(pItem1);
+
+	pHlay->addWidget(m_pMinBtn);
+	QSpacerItem* pItem2 = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
+	pHlay->addSpacerItem(pItem2);
+	
+	pHlay->addWidget(m_pMaxBtn);
+	QSpacerItem* pItem3 = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
+	pHlay->addSpacerItem(pItem3);  
+
+	pHlay->addWidget(m_pCloseBtn);
+
+	pHlay->setContentsMargins(5, 5, 5, 5);
+
+	connect(m_pMinBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
+	connect(m_pMaxBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
+	connect(m_pCloseBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
+	connect(m_pMinimodeBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
 }
 
 void CTitleBar::mousePressEvent(QMouseEvent* event)
@@ -138,28 +137,52 @@ void CTitleBar::mousePressEvent(QMouseEvent* event)
 
 void CTitleBar::mouseDoubleClickEvent(QMouseEvent* event)
 {
-	emit ui.btnMax->clicked();
+	emit sig_ShowFullFcreen();
 }
 
-void CTitleBar::on_Clicked()
+void CTitleBar::resizeEvent(QResizeEvent* event)
+{
+	int x = (this->width() - m_pFileNameLabel->width()) / 2;
+	int y = (this->height() - m_pFileNameLabel->height()) / 2;
+	m_pFileNameLabel->move(x, y);
+}
+
+void CTitleBar::onClicked()
 {
 	QPushButton* pButton = qobject_cast<QPushButton*>(sender());
 
 	QWidget* pWindow = this->window();
 
-	if (pWindow->isTopLevel())
+	if (pButton == m_pMinBtn)
 	{
-		if (pButton == ui.btnMin)
+		pWindow->showMinimized();
+	}
+	else if (pButton == m_pMaxBtn)
+	{
+		if (pWindow->isMaximized())
 		{
-			pWindow->showMinimized();
+			pWindow->showNormal();
+			m_pMaxBtn->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/max.svg);border:none}" \
+				"QPushButton:hover{" \
+				"background-color:rgb(99, 99, 99);" \
+				"background-image:url(:/titleBar/resources/titleBar/max_hover.svg);border:none;}");
 		}
-		else if (pButton == ui.btnMax)
+		else
 		{
-			pWindow->isMaximized() ? pWindow->showNormal() : pWindow->showMaximized();
-		}
-		else if (pButton == ui.btnClose)
-		{
-			emit sig_close();
+			pWindow->showMaximized();
+			m_pMaxBtn->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/normal.svg);border:none}" \
+				"QPushButton:hover{" \
+				"background-color:rgb(99, 99, 99);" \
+				"background-image:url(:/titleBar/resources/titleBar/normal_hover.svg);border:none;}");
 		}
 	}
+	else if (pButton == m_pMinimodeBtn)
+	{
+		emit sig_showMiniMode();
+	}
+	else if (pButton == m_pCloseBtn)
+	{
+		emit sig_close();
+	}
 }
+

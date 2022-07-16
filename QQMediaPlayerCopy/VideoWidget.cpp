@@ -1,23 +1,25 @@
-/*
-
-该界面使用move布局
-
-视频播放另外用一个widget，是为了消除控件的raise,lower闪烁问题
-
-*/
-
 #include "VideoWidget.h"
 #include <QPainter>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QMenu>
+#include <QDebug>
+#include <qt_windows.h>
+#include <QApplication>
+#include <QMessageBox>
+#include <iostream>
 
-#define TIME_SLIDER_HEIGHT   20
+using namespace std;
 
-VideoWidget::VideoWidget(QWidget *p):
+VideoWidget::VideoWidget(QWidget* p) :
 	QWidget(p)
 {
 	setAttribute(Qt::WA_StyledBackground);  // 禁止父窗口样式影响子控件样式
+	this->setAttribute(Qt::WA_OpaquePaintEvent);
+
+	qApp->installNativeEventFilter(this);
+
+	setMouseTracking(true);
 
 	//设置渐变色
 	this->setStyleSheet("QWidget{\
@@ -36,145 +38,74 @@ VideoWidget::VideoWidget(QWidget *p):
 
 	setMinimumSize(800, 450);
 
-	m_pVideoPlayWidget = new QWidget(this);
-	m_pVideoPlayWidget->resize(this->width(), this->height());
-	m_pVideoPlayWidget->lower();
+	m_pTopWidget = new CVideoWidgetTopWidget(this);
 
-	m_pOpenFileButton = new COpenFileButton(this);
-	m_pOpenrRightlistButton = new QPushButton(this);
-
-	m_pOpenrRightlistButton->setText(u8"");
-	m_pOpenrRightlistButton->setFixedSize(36, 80);
-
-	//图片的偏移 80 / 2 - 32 / 2 = 40 - 16 = 24
-	m_pOpenrRightlistButton->setStyleSheet("QPushButton{background-color:rgb(54,54,54);background-image:url(:/videoWidget/resources/videoWidget/left_arrow.svg); \
-		background-position:center; \
-		padding-top: 24px; \
-		padding-down: 24px; \
-		background-repeat: no-repeat; \
-		border:none;} \
-		QPushButton:hover{background-image:url(:/videoWidget/resources/videoWidget/left_arrow_hover.svg);border:none;} \
-		QPushButton:pressed{background-image:url(:/videoWidget/resources/videoWidget/left_arrow.svg);border:none;}");
-
-	m_pTimeSlider = new QSlider(this);
-	m_pTimeSlider->setOrientation(Qt::Horizontal);
-	m_pTimeSlider->setFixedHeight(TIME_SLIDER_HEIGHT);
-	m_pTimeSlider->hide();   //默认隐藏
-	m_pTimeSlider->lower();
-
-	connect(m_pOpenFileButton, &COpenFileButton::sig_openfile, this, &VideoWidget::sig_OpenFile);
-	connect(m_pOpenFileButton, &COpenFileButton::sig_openFloder, this, &VideoWidget::sig_OpenFloder);
-	connect(m_pOpenrRightlistButton, &QPushButton::clicked, this, &VideoWidget::sig_OpenPlaylist);
+	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_OpenFile, this, &VideoWidget::sig_OpenFile);
+	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_OpenPlaylist, this, &VideoWidget::sig_OpenPlaylist);
+	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_SliderMove, this, &VideoWidget::onSliderMoved);
 }
 
 VideoWidget::~VideoWidget()
 {
 }
 
-void VideoWidget::ShowOpenFileButton(bool show)
+void VideoWidget::onSliderMoved(int value)
 {
-	show ? m_pOpenFileButton->show() : m_pOpenFileButton->hide();
+	emit sig_SliderMoved(value);
 }
 
-void VideoWidget::setPlay(bool play)
+void VideoWidget::showTopWidget(bool show)
+{
+	if (show)
+	{
+		m_pTopWidget->show();
+		m_pTopWidget->showOpenFileBtn(false);
+		m_pTopWidget->showSlider(true);
+	}
+	else
+	{
+		m_pTopWidget->hide();
+	}
+}
+
+void VideoWidget::setPlayStatus(bool play)
 {
 	m_isPlay = play;
-
-	if (play)
-	{
-		m_pOpenFileButton->hide();
-		m_pOpenrRightlistButton->hide();
-	}
-	else
-	{
-		m_pOpenFileButton->show();
-		m_pOpenrRightlistButton->show();
-	}
 }
 
-QWidget* VideoWidget::playWidget() const
+void VideoWidget::showTopWidgetOpenfilesButton(bool show)
 {
-	return m_pVideoPlayWidget;
-}
-
-void VideoWidget::setTimeSliderRange(int maxValue)
-{
-	m_pTimeSlider->setRange(0, maxValue);
-}
-
-void VideoWidget::setTimeSliderPos(int pos)
-{
-	m_pTimeSlider->setValue(pos);
-}
-
-//隐藏控件
-void VideoWidget::hideCtrl(bool hide)
-{
-	if (hide)
-	{
-		m_pOpenFileButton->hide();
-		m_pOpenrRightlistButton->hide();
-		m_pTimeSlider->hide();
-	}
-	else
-	{
-		m_pOpenFileButton->show();
-		m_pOpenrRightlistButton->show();
-		m_pTimeSlider->show();
-	}
+	m_pTopWidget->showOpenFileBtn(show);
 }
 
 void VideoWidget::resizeEvent(QResizeEvent* event)
 {
-	if (m_pOpenFileButton && m_pOpenrRightlistButton && m_pTimeSlider)
-	{
-		m_pVideoPlayWidget->move(0, 0);
-		m_pVideoPlayWidget->resize(this->width(), this->height());
+	m_dPos = this->pos();
 
-		int x1 = this->width() / 2 - m_pOpenFileButton->width() / 2;
-		int y1 = this->height() / 2 - m_pOpenFileButton->height() / 2;
-		m_pOpenFileButton->move(x1, y1);
+	QPoint pos = this->mapToGlobal(QPoint(0, 0));
+	m_pTopWidget->resize(this->width(), this->height());
+	m_pTopWidget->move(pos);
+	m_pTopWidget->show();
 
-		int x2 = this->width() - m_pOpenrRightlistButton->width();
-		int y2 = this->height() / 2 - m_pOpenrRightlistButton->height() / 2;
-		m_pOpenrRightlistButton->move(x2, y2);
-
-		int x3 = 0;
-		int y3 = this->height() - TIME_SLIDER_HEIGHT;
-		m_pTimeSlider->move(x3, y3);
-		m_pTimeSlider->resize(this->width(), TIME_SLIDER_HEIGHT);
-	}
+	//QPoint pos = this->window()->mapToGlobal(QPoint(0, 0));
+	//m_pTopWidget->move(pos + m_dPos);
 }
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
-void VideoWidget::enterEvent(QEnterEvent* event)
+bool VideoWidget::nativeEventFilter(const QByteArray& eventType, void* message, qintptr* result)
 #else
-void VideoWidget::enterEvent(QEvent* event)
+bool VideoWidget::nativeEventFilter(const QByteArray& eventType, void* message, long* result)
 #endif
 {
-	if (m_isPlay)
+	if (eventType == "windows_generic_MSG" || eventType == "windows_dispatcher_MSG") 
 	{
-		m_pTimeSlider->raise();
-		m_pTimeSlider->show();
-
-		m_pOpenrRightlistButton->raise();
-		m_pOpenrRightlistButton->show();
+		MSG* pMsg = reinterpret_cast<MSG*>(message);
+		if (pMsg->message == 1025 || pMsg->message == 512)
+		{
+			QPoint pos = this->window()->mapToGlobal(QPoint(0, 0));
+			m_pTopWidget->move(pos + m_dPos);
+		}
 	}
-}
 
-void VideoWidget::leaveEvent(QEvent* event)
-{
-	if (m_isPlay)
-	{
-		m_pTimeSlider->lower();
-		m_pTimeSlider->hide();
-
-		m_pOpenrRightlistButton->lower();
-		m_pOpenrRightlistButton->hide();
-	}
-}
-
-void VideoWidget::paintEvent(QPaintEvent* event)
-{
-	
+	return false;
 }

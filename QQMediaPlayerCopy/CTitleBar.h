@@ -1,7 +1,8 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_CTitleBar.h"
+#include <QLabel>
+#include <QPushButton>
 
 class CTitleBar : public QWidget
 {
@@ -11,19 +12,30 @@ public:
 	CTitleBar(QWidget *parent = Q_NULLPTR);
 	~CTitleBar();
 
-	int getHeight();
+	void setFileNameLabelText(QString name);
 
 private:
-	void paintEvent(QPaintEvent* event) override;
+	void initUI();
+
+private:
 	void mousePressEvent(QMouseEvent* event) override;
-	void mouseDoubleClickEvent(QMouseEvent* event);
+	void mouseDoubleClickEvent(QMouseEvent* event) override;
+	void resizeEvent(QResizeEvent* event) override;
 
 signals:
 	void sig_close();
+	void sig_ShowFullFcreen();
+	void sig_showMiniMode(); // √‘ƒ„–°¥∞œ‘ æ
 
 private slots:
-	void on_Clicked();
+	void onClicked();
 
 private:
-	Ui::CTitleBar ui;
+	QPushButton* m_pLogoBtn;
+	QLabel* m_pFileNameLabel;
+	QPushButton* m_pMinimodeBtn;
+	QPushButton* m_pSettopBtn;  //÷√∂•
+	QPushButton* m_pMinBtn;
+	QPushButton* m_pMaxBtn;
+	QPushButton* m_pCloseBtn;
 };

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_CPlayCtrlBar.h"
 #include <QLabel>
 #include <QPushButton>
 #include "CPlayButtonGroupWidget.h"
@@ -27,8 +26,6 @@ private:
 	void resizeEvent(QResizeEvent* event) override;
 
 private:
-	Ui::CPlayCtrlBar ui;
-
 	QLabel* m_pCurPlayTimeLabel = nullptr;
 	QLabel* m_pTotalTimeLabel = nullptr;
 	CPlayButtonGroupWidget* m_pPlayButtonGroupWidget = nullptr;

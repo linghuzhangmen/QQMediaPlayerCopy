@@ -26,9 +26,6 @@
     <QtRcc Include="QQMediaPlayerCopy.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="QQMediaPlayerCopy.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtMoc Include="QQMediaPlayerCopy.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -61,7 +58,13 @@
     <ClCompile Include="COpenFileButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CFrameLessWidgetBase.cpp">
+    <ClCompile Include="CVlcKits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVideoWidgetTopWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeSlider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -69,7 +72,7 @@
     <ClInclude Include="CommonUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CFrameLessWidgetBase.h">
+    <ClInclude Include="qss.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,13 +95,14 @@
     <QtMoc Include="CPlayListWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="CPlayCtrlBar.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="CTitleBar.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
+    <QtMoc Include="CVlcKits.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CVideoWidgetTopWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CTimeSlider.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

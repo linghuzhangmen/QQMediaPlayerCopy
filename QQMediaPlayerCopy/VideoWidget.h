@@ -1,52 +1,53 @@
 /*
 
-视频显示类
+视频显示窗口类
 
 */
 
+
 #pragma once
+
 #include <QWidget>
 #include <QPushButton>
-#include "COpenFileButton.h"
-#include <QSlider>
 
-class VideoWidget : public QWidget
+#include <QSlider>
+#include <QAbstractNativeEventFilter>
+#include "CVideoWidgetTopWidget.h"
+
+
+class VideoWidget : public QWidget, public QAbstractNativeEventFilter
 {
 	Q_OBJECT
 
 public:
-	VideoWidget(QWidget *p = NULL);
+	VideoWidget(QWidget* p = NULL);
 	~VideoWidget();
 
-	void ShowOpenFileButton(bool show);
-	void setPlay(bool play);
-	QWidget* playWidget() const;
-	void setTimeSliderRange(int maxValue);
-	void setTimeSliderPos(int pos);
-	void hideCtrl(bool hide);
+	void showTopWidget(bool show);
+	void setPlayStatus(bool play);
+	void showTopWidgetOpenfilesButton(bool show);
 
 protected:
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
+	bool nativeEventFilter(const QByteArray& eventType, void* message, qintptr* result) override;
+#else
+	bool nativeEventFilter(const QByteArray& eventType, void* message, long* result) override;
+#endif
 	void resizeEvent(QResizeEvent* event) override;
 
-#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
-	void enterEvent(QEnterEvent* event);
-#else
-	void enterEvent(QEvent* event) override;
-#endif
-
-	void leaveEvent(QEvent* event) override;
-	void paintEvent(QPaintEvent* event) override;
+private slots:
+	void onSliderMoved(int value);
 
 signals:
 	void sig_OpenFile(const QStringList& fileList);
 	void sig_OpenFloder(QString path);
 	void sig_OpenPlaylist();
+	void sig_Totalms(const qint64& duration);   //发给主界面
+	void sig_VideoPositionChanged(const qint64& pos);   //发给主界面
+	void sig_SliderMoved(int value);
 
 private:
-	QWidget* m_pVideoPlayWidget = nullptr;
-	QPushButton* m_pOpenrRightlistButton = nullptr;
-	COpenFileButton* m_pOpenFileButton = nullptr;
-	QSlider* m_pTimeSlider = nullptr;
-	bool   m_isPlay = false;
+	QPoint m_dPos;   //VideoWidget相对于父窗口的位置
+	CVideoWidgetTopWidget* m_pTopWidget = nullptr;
+	bool m_isPlay = false;
 };
-

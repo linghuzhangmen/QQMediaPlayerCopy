@@ -1,17 +1,19 @@
 <RCC>
     <qresource prefix="/titleBar">
-        <file>resources/titleBar/down_arrow.svg</file>
-        <file>resources/titleBar/up_arrow.svg</file>
         <file>resources/titleBar/close.svg</file>
         <file>resources/titleBar/close_hover.svg</file>
+        <file>resources/titleBar/down_arrow.svg</file>
         <file>resources/titleBar/max.svg</file>
         <file>resources/titleBar/max_hover.svg</file>
         <file>resources/titleBar/min.svg</file>
         <file>resources/titleBar/min_hover.svg</file>
         <file>resources/titleBar/minimode.svg</file>
         <file>resources/titleBar/minimode_hover.svg</file>
+        <file>resources/titleBar/normal.svg</file>
+        <file>resources/titleBar/normal_hover.svg</file>
         <file>resources/titleBar/settop.svg</file>
         <file>resources/titleBar/settop_hover.svg</file>
+        <file>resources/titleBar/up_arrow.svg</file>
     </qresource>
     <qresource prefix="/playCtrlBar">
         <file>resources/playctrlBar/effect.svg</file>

@@ -14,7 +14,7 @@ CPlayListWidget::CPlayListWidget(QWidget* parent) : QWidget(parent)
 	//ÉèÖÃ²»¿É±à¼­
 	m_pListView->setEditTriggers(QListView::EditTrigger::NoEditTriggers);
 
-	QString qss = "QListView{background-color:rgb(54,54,54);show-decoration-selected:1;border:none;color:#FFFFFF;outline:none} \
+	QString qss = "QListView{background-color:rgb(64,74,84);show-decoration-selected:1;border:none;color:#FFFFFF;outline:none} \
 		QListView::item{padding-top:12px;padding-bottom:12px;} \
 		QListView::item:alternate{background:#EEEEEE;} \
 		QListView::item:selected{border:1px solid #6a6ea9;} \
@@ -24,7 +24,7 @@ CPlayListWidget::CPlayListWidget(QWidget* parent) : QWidget(parent)
 	m_pListView->setStyleSheet(qss);
 
 	pVLay->addWidget(m_pListView);
-	pVLay->setContentsMargins(5, 0, 5, 0);
+	pVLay->setContentsMargins(0, 0, 0, 0);
 
 	setLayout(pVLay);
 
