@@ -2,6 +2,7 @@
 2022-07-17
 <br/>
 (1) main分支使用libvlc作为播放组件，player_SDL任然使用ffmpeg、SDL解码播放
+<br/>
 (2) 修改增加窗口置顶、修改界面样式
 <br/>
 <br/>
