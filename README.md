@@ -3,6 +3,7 @@
 <br/>
 (1) main分支使用libvlc作为播放组件，player_SDL任然使用ffmpeg、SDL解码播放
 <br/>
+<br/>
 (2) 修改增加窗口置顶、修改界面样式
 <br/>
 2022-07-14
@@ -26,6 +27,7 @@ player_SDL分支：使用SDL FFmpeg做解码转换播放
 
 # 开发环境 
 main分支：win11 x64、vs2022  qt6.3
+<br/>
 <br/>
 player_SDL分支：win11/win10  vs2019 Qt5.15.2 x64
 
