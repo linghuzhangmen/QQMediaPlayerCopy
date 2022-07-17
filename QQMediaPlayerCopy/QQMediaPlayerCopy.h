@@ -66,6 +66,7 @@ protected slots:
 	void on_openFile(const QStringList& fileList);
     void On_openRightPlaylist();
     void On_timer();
+    void OnUpdateTimeText(const QString& str);
 
 private:
     //根据鼠标的设置鼠标样式，用于拉伸

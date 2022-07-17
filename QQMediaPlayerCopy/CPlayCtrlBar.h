@@ -15,7 +15,6 @@ public:
 
 	void showTimeLabel(bool isShow);
 	void setCurPlayTime(const QString& curPlaytime);
-	void setTotalTime(const QString& totalTime);
 
 signals:
 	void sig_play();
@@ -27,7 +26,6 @@ private:
 
 private:
 	QLabel* m_pCurPlayTimeLabel = nullptr;
-	QLabel* m_pTotalTimeLabel = nullptr;
 	CPlayButtonGroupWidget* m_pPlayButtonGroupWidget = nullptr;
 	QPushButton* m_pToolBoxButton = nullptr;
 	QPushButton* m_pEffectButton = nullptr;

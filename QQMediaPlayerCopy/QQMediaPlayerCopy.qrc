@@ -14,6 +14,7 @@
         <file>resources/titleBar/settop.svg</file>
         <file>resources/titleBar/settop_hover.svg</file>
         <file>resources/titleBar/up_arrow.svg</file>
+        <file>resources/titleBar/settoped.png</file>
     </qresource>
     <qresource prefix="/playCtrlBar">
         <file>resources/playctrlBar/effect.svg</file>

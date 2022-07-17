@@ -60,6 +60,19 @@ std::string settop_qss = R"(
 	}
 )";
 
+std::string settoped_qss = R"(
+	QPushButton#m_pSettopBtn{
+		background-image:url(:/titleBar/resources/titleBar/settoped);
+		border:none
+	}
+
+	QPushButton#m_pSettopBtn:hover{
+		background-color:rgb(99, 99, 99);
+		background-image:url(:/titleBar/resources/titleBar/settoped);
+		border:none
+	}
+)";
+
 std::string min_qss = R"(
 	QPushButton{
 		background-image:url(:/titleBar/resources/titleBar/min.svg);

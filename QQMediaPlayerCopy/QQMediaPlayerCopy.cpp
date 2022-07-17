@@ -71,6 +71,8 @@ QQMediaPlayerCopy::QQMediaPlayerCopy(QWidget* parent)
 		exit(EXIT_FAILURE);
 	}
 
+	connect(m_pVlc.get(), &CVlcKits::sig_UpdateTimeText, this, &QQMediaPlayerCopy::OnUpdateTimeText);
+
 	QVBoxLayout* pVLay = new QVBoxLayout(this);
 	pVLay->setSpacing(0);
 
@@ -165,6 +167,8 @@ void QQMediaPlayerCopy::on_openFile(const QStringList& fileList)
 	fileName = fileName.mid(index1 + 1);
 	m_pTitleBar->setFileNameLabelText(fileName);
 	m_isPlay = true;
+
+	m_pPlayCtrlBar->showTimeLabel(true);
 	
 	m_pTimer = new QTimer(this);
 	m_pTimer->start(3000);
@@ -214,6 +218,11 @@ void QQMediaPlayerCopy::On_timer()
 			this->setCursor(Qt::ArrowCursor);  //显示正常鼠标
 		}
 	}
+}
+
+void QQMediaPlayerCopy::OnUpdateTimeText(const QString& str)
+{
+	m_pPlayCtrlBar->setCurPlayTime(str);
 }
 
 void QQMediaPlayerCopy::On_ShowFullScreen()

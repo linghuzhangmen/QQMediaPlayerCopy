@@ -1,3 +1,9 @@
+/*
+
+底部控制栏
+
+*/
+
 #include "CPlayCtrlBar.h"
 #include <QHBoxLayout>
 
@@ -12,16 +18,10 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 	QString label_qss = "QLabel{font-family:Microsoft YaHei; font-size:18px; color:rgb(255,255,255);}";
 
 	m_pCurPlayTimeLabel = new QLabel(this);
-	m_pCurPlayTimeLabel->setText("00:00:00");
-	m_pCurPlayTimeLabel->setAlignment(Qt::AlignRight);
-	m_pCurPlayTimeLabel->setFixedSize(80, 32);
+	m_pCurPlayTimeLabel->setText("");
+	//m_pCurPlayTimeLabel->setAlignment(Qt::AlignRight);
+	m_pCurPlayTimeLabel->setFixedSize(180, 32);
 	m_pCurPlayTimeLabel->setStyleSheet(label_qss);
-
-	m_pTotalTimeLabel = new QLabel(this);
-	m_pTotalTimeLabel->setText("01:20:30");
-	m_pTotalTimeLabel->setAlignment(Qt::AlignLeft);
-	m_pTotalTimeLabel->setFixedSize(160, 32);
-	m_pTotalTimeLabel->setStyleSheet(label_qss);
 
 	m_pPlayButtonGroupWidget = new CPlayButtonGroupWidget(this);
 
@@ -49,9 +49,7 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 
 	QHBoxLayout* pHLay = new QHBoxLayout(this);
 	pHLay->addSpacing(3);
-	pHLay->addWidget(m_pCurPlayTimeLabel);
-	pHLay->addSpacing(1);
-	pHLay->addWidget(m_pTotalTimeLabel);
+	pHLay->addWidget(m_pCurPlayTimeLabel, Qt::AlignVCenter);
 	pHLay->addStretch();
 	pHLay->addWidget(m_pPlayButtonGroupWidget);
 	pHLay->addStretch();
@@ -79,12 +77,10 @@ void CPlayCtrlBar::showTimeLabel(bool isShow)
 	if (isShow)
 	{
 		m_pCurPlayTimeLabel->show();
-		m_pTotalTimeLabel->show();
 	}
 	else
 	{
 		m_pCurPlayTimeLabel->hide();
-		m_pTotalTimeLabel->hide();
 	}
 }
 
@@ -92,12 +88,6 @@ void CPlayCtrlBar::showTimeLabel(bool isShow)
 void CPlayCtrlBar::setCurPlayTime(const QString& curPlaytime)
 {
 	m_pCurPlayTimeLabel->setText(curPlaytime);
-}
-
-//设置总的播放时间
-void CPlayCtrlBar::setTotalTime(const QString& totalTime)
-{
-	m_pTotalTimeLabel->setText("/" + totalTime);
 }
 
 void CPlayCtrlBar::resizeEvent(QResizeEvent* event)

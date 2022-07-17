@@ -112,7 +112,6 @@ CVlcKits::~CVlcKits()
 /// </returns>
 int CVlcKits::initVLC()
 {
-    // vlc≥ı ºªØ
     m_pInstance = libvlc_new(0, nullptr);
 
     if (m_pInstance)
@@ -217,26 +216,16 @@ int CVlcKits::play(QStringList fileList, void* hwnd)
     return 0;
 }
 
-/*
-
-libvlc_media_list_player_play
-libvlc_media_list_player_pause
-libvlc_media_list_player_stop
-
-*/
-
 void CVlcKits::play()
 {
     if (libvlc_media_player_get_state(m_pMediaPlayer)
         == libvlc_state_t::libvlc_Paused)
     {
-        //libvlc_media_player_play(m_pMediaPlayer);
         libvlc_media_list_player_play(m_pMediaPlayerList);
     }
     else if(libvlc_media_player_get_state(m_pMediaPlayer)
         == libvlc_state_t::libvlc_Playing)
     {
-        //libvlc_media_player_pause(m_pMediaPlayer);
         libvlc_media_list_player_pause(m_pMediaPlayerList);
     }   
 }

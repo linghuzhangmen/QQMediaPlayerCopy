@@ -74,6 +74,7 @@ void CTitleBar::initUI()
 	m_pSettopBtn = new QPushButton(this);
 	m_pSettopBtn->setObjectName("m_pSettopBtn");
 	m_pSettopBtn->setText("");
+	m_pSettopBtn->setToolTip(tr("set to top window"));
 	m_pSettopBtn->setFixedSize(32, 32);
 	m_pSettopBtn->setStyleSheet(QString::fromStdString(settop_qss));
 
@@ -119,6 +120,7 @@ void CTitleBar::initUI()
 	connect(m_pMaxBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
 	connect(m_pCloseBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
 	connect(m_pMinimodeBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
+	connect(m_pSettopBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
 }
 
 void CTitleBar::mousePressEvent(QMouseEvent* event)
@@ -179,6 +181,24 @@ void CTitleBar::onClicked()
 	else if (pButton == m_pMinimodeBtn)
 	{
 		emit sig_showMiniMode();
+	}
+	else if (pButton == m_pSettopBtn)
+	{
+		HWND hwnd = (HWND)(pWindow->winId());
+		if (::GetWindowLong(hwnd, GWL_EXSTYLE) & WS_EX_TOPMOST)
+		{
+			// The window is topmost.
+			::SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+			m_pSettopBtn->setStyleSheet(QString::fromStdString(settop_qss));
+			m_pSettopBtn->setToolTip(tr("set to top window"));
+		}
+		else
+		{
+			// The window is not topmost.
+			::SetWindowPos(HWND(pWindow->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+			m_pSettopBtn->setStyleSheet(QString::fromStdString(settoped_qss));
+			m_pSettopBtn->setToolTip(tr("cancal top window"));
+		}
 	}
 	else if (pButton == m_pCloseBtn)
 	{
