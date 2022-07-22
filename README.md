@@ -23,6 +23,7 @@ C++ Qt 高仿Windows端QQ影音视频播放器, 界面如下
 
 # 分支说明
 main分支：使用libvlc为播放组件
+<br/>
 player_SDL分支：使用SDL FFmpeg做解码转换播放
 
 # 开发环境 
