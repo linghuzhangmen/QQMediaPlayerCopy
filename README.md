@@ -5,6 +5,7 @@
 <br/>
 (2) 增加倍速播放功能
 <br/>
+<br/>
 2022-07-17
 <br/>
 (1) main分支使用libvlc作为播放组件，player_SDL任然使用ffmpeg、SDL解码播放
@@ -18,13 +19,10 @@
 
 # QQMediaPlayerCopy项目介绍
 
-使用C++ Qt开发的Windows端视频播放器，高仿QQ影音界面, 如下
+使用C++ Qt开发的Windows端视频播放器，高仿QQ影音界面, 如下图
 
 ![image](https://user-images.githubusercontent.com/42860254/180600270-91697fc3-36f9-4830-bbd7-9cd33f7640e1.png)
 
-
-播放界面
-![3](https://user-images.githubusercontent.com/42860254/155159626-0ccfb947-336b-4ea3-9716-60ce1b7b9111.png)
 <br/>
 主要功能
 + 支持mp4、avi、flv等视频文件的播放
