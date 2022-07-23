@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QSettings>
 #include <QStandardPaths>
+#include <QMessageBox>
 
 #define LEFT_BUTTON_WIDTH 145
 #define RIGHT_BUTTON_WIDTH 60
@@ -62,18 +63,39 @@ COpenFileButton::COpenFileButton(QWidget* p) : QWidget(p)
 
 	m_pArrowButton->setStyleSheet(qssRight);
 
-	QString menu_qss = "QMenu{background-color:rgb(253,253,253);}"
-		"QMenu::item{"
-		"font:16px;"
-		"background-color:rgb(253,253,253);"
-		"padding:8px 32px;"
-		"margin:0px 8px;"
-		"border-bottom:1px solid #DBDBDB;}"
+	//QString menu_qss = "QMenu{background-color:rgb(253,253,253);}"
+	//	"QMenu::item{"
+	//	"font:16px;"
+	//	"background-color:rgb(253,253,253);"
+	//	"padding:8px 32px;"
+	//	"margin:0px 8px;"
+	//	"border-bottom:1px solid #DBDBDB;}"
+	//	/*选择项设置*/
+	//	"QMenu::item:selected{background-color: #FFF8DC;}";
+
+	std::string menu_qss = R"(
+		QMenu
+		{
+			background-color:rgb(73, 73, 73);
+		}
+ 
+		QMenu::item
+		{
+			 font:16px;
+			 color:white;
+			 background-color:rgb(73, 73, 73);
+			 margin:8px 8px;
+		}
+ 
 		/*选择项设置*/
-		"QMenu::item:selected{background-color: #FFF8DC;}";
+		QMenu::item:selected
+		{
+			 background-color:rgb(54, 54, 54);
+		}
+	)";
 
 	QMenu* pMenu = new QMenu(this);
-	pMenu->setStyleSheet(menu_qss);
+	pMenu->setStyleSheet(QString::fromStdString(menu_qss));
 	pMenu->setFixedWidth(m_totalWidth);
 	QAction* pAc1 = new QAction(tr("open file"), this);
 	QAction* pAc2 = new QAction(tr("open floder"), this);
@@ -146,24 +168,12 @@ void COpenFileButton::on_openfile()
 		lastPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);  //获取默认的文档路径 
 	}
 
-	/*QString fileName = QFileDialog::getOpenFileName(
-		this, u8"选择要播放的文件",
-		lastPath,
-		u8"视频文件 (*.flv *.rmvb *.avi *.mp4);; 所有文件 (*.*);; ");*/
-
 	//可以同时打开多个文件
 	QStringList filelist = QFileDialog::getOpenFileNames(
 		this, 
 		tr("select video file"),
 		lastPath,
 		tr("video file (*.flv *.rmvb *.avi *.mp4);; all files(*.*);; "));
-
-	/*for (int i = 0; i < flielist.size(); i++)
-	{
-		QString strName = pathlist[i];
-		ui->comboBox->addItem(strName);
-	}*/
-
 
 	if (filelist.isEmpty())
 	{
@@ -179,12 +189,46 @@ void COpenFileButton::on_openfile()
 
 void COpenFileButton::on_openFloder()
 {
-	QString path = QFileDialog::getExistingDirectory(this, tr("choose video directory"), "/");
+	QString cfgPath = "HKEY_CURRENT_USER\\Software\\QQMediaPlayerCopy";
+	QSettings settings(cfgPath, QSettings::NativeFormat);
+	QString lastPath = settings.value("openfile_path").toString();  // 从注册表获取路径
+
+	if (lastPath.isEmpty())
+	{
+		lastPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);  //获取默认的文档路径 
+	}
+
+	QString path = QFileDialog::getExistingDirectory(this, 
+		tr("choose video directory"), lastPath);
 
 	if (path.isEmpty())
 	{
 		return;
 	}
+
+	QDir dir(path);
+
+	QStringList nameFilters;
+	nameFilters << "*.mp4" << "*.flv" << "*.rmvb" << "*.avi";
+
+	//将过滤后的文件名称存入到files列表中
+	QStringList files = dir.entryList(nameFilters, QDir::Files | QDir::Readable, QDir::Name);
 	
-	emit sig_openFloder(path);
+	int _size = files.size();
+	if (_size == 0)
+	{
+		QMessageBox::information(this, tr("Warn"), tr("this floder no video files"));
+		return;
+	}
+
+	QStringList fileList;
+	for (int i = 0; i < _size; i++)
+	{
+		QString fileName = path + "/" + files[i];
+		fileList << fileName;
+	}
+
+	settings.setValue("openfile_path", path);  // 将当前打开的路径写入到注册表
+	
+	emit sig_openfile(fileList);
 }

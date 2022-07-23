@@ -26,6 +26,7 @@ public:
 	void showTopWidget(bool show);
 	void setPlayStatus(bool play);
 	void showTopWidgetOpenfilesButton(bool show);
+	void setTimeSliderPos(const int value);
 
 protected:
 #if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))

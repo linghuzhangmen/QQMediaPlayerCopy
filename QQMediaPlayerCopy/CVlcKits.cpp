@@ -269,3 +269,10 @@ void CVlcKits::setVideoPostion(int value)
 {
     libvlc_media_player_set_position(m_pMediaPlayer, value / 100.0);
 }
+
+// 设置播放速度
+void CVlcKits::setPlayRate(double rate)
+{
+    if(m_pMediaPlayer)
+        libvlc_media_player_set_rate(m_pMediaPlayer, rate);
+}

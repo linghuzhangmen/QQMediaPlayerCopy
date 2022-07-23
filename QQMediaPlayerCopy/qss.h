@@ -24,15 +24,25 @@ std::string logo_button_qss = R"(
 	})";
 
 std::string menu_qss = R"(
-	QMenu{background-color:rgb(253,253,253);}
-	QMenu::item{
-		font:16px;
-		background-color:rgb(253,253,253);
-		padding:8px 32px;
-		margin:0px 8px;
-		border-bottom:1px solid #DBDBDB;}
+		QMenu
+		{
+			background-color:rgb(73, 73, 73);
+		}
+ 
+		QMenu::item
+		{
+			 font:16px;
+			 color:white;
+			 background-color:rgb(73, 73, 73);
+			 margin:8px 8px;
+		}
+ 
 		/*—°‘ÒœÓ…Ë÷√*/
-		QMenu::item:selected{background-color: #FFF8DC;})";
+		QMenu::item:selected
+		{
+			 background-color:rgb(54, 54, 54);
+		}
+	)";
 
 std::string minimode_qss = R"(
 	QPushButton#m_pMinimodeBtn{

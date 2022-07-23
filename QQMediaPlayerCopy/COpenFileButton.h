@@ -21,7 +21,7 @@ protected:
 
 signals:
 	void sig_openfile(const QStringList& fileList);
-	void sig_openFloder(QString path);
+	//void sig_openFloder(QString path);
 
 private:
 	QPushButton* m_pOpenFileButton = nullptr;

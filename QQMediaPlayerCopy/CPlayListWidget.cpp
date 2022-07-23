@@ -49,5 +49,5 @@ QStringList CPlayListWidget::getPlaylist() const
 void CPlayListWidget::on_Item_doubleClicked(const QModelIndex& index)
 {
 	QString itemValue = m_pStringListModel->data(index).toString();
-	emit sig_fileName(itemValue);
+	emit sig_doubleClickFileName(itemValue);
 }

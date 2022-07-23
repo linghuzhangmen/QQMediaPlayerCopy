@@ -67,6 +67,9 @@ protected slots:
     void On_openRightPlaylist();
     void On_timer();
     void OnUpdateTimeText(const QString& str);
+    void OnUpdateTimeSlider(const int& value);
+    void OnSetPlayRate(double rate);
+    void OnPlay(const QString& fileName);
 
 private:
     //根据鼠标的设置鼠标样式，用于拉伸

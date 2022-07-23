@@ -35,12 +35,12 @@ CPlayButtonGroupWidget::CPlayButtonGroupWidget(QWidget *parent)
 		"QPushButton:hover{background-color:rgb(99, 99, 99);background-image:url(:/playCtrlBar/resources/playctrlBar/next_hover.svg);border:none;}"
 		"QPushButton:pressed{background-image:url(:/playCtrlBar/resources/playctrlBar/next.svg);border:none;}");
 
-	m_pAudioButton = new QPushButton(this);
-	m_pAudioButton->setText("");
-	m_pAudioButton->setFixedSize(32, 32);
-	m_pAudioButton->setStyleSheet("QPushButton{background-image:url(:/playCtrlBar/resources/playctrlBar/audio_open.svg);border:none;}"
+	m_pVolumeButton = new CVolumeButton(this);
+	//m_pVolumeButton->setText("");
+	//m_pAudioButton->setFixedSize(32, 32);
+	/*m_pAudioButton->setStyleSheet("QPushButton{background-image:url(:/playCtrlBar/resources/playctrlBar/audio_open.svg);border:none;}"
 		"QPushButton:hover{background-color:rgb(99, 99, 99);background-image:url(:/playCtrlBar/resources/playctrlBar/audio_open_hover.svg);border:none;}"
-		"QPushButton:pressed{background-image:url(:/playCtrlBar/resources/playctrlBar/audio_open.svg);border:none;}");
+		"QPushButton:pressed{background-image:url(:/playCtrlBar/resources/playctrlBar/audio_open.svg);border:none;}");*/
 
 	QHBoxLayout* pHLay = new QHBoxLayout(this);
 	pHLay->addWidget(m_pStopButton);
@@ -51,7 +51,7 @@ CPlayButtonGroupWidget::CPlayButtonGroupWidget(QWidget *parent)
 	pHLay->setSpacing(8);
 	pHLay->addWidget(m_pNextButton);
 	pHLay->setSpacing(8);
-	pHLay->addWidget(m_pAudioButton);
+	pHLay->addWidget(m_pVolumeButton);
 
 	pHLay->setContentsMargins(10, 10, 10, 10);
 

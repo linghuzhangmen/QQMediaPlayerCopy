@@ -35,6 +35,7 @@
         <file>resources/playctrlBar/toolbox_hover.svg</file>
         <file>resources/playctrlBar/audio_open.svg</file>
         <file>resources/playctrlBar/audio_open_hover.svg</file>
+        <file>resources/playctrlBar/x.png</file>
     </qresource>
     <qresource prefix="/videoWidget">
         <file>resources/videoWidget/openfile.svg</file>

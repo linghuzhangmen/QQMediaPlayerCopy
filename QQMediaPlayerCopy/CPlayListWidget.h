@@ -21,7 +21,7 @@ private slots:
 	void on_Item_doubleClicked(const QModelIndex& index);
 
 signals:
-	void sig_fileName(const QString& fileName);
+	void sig_doubleClickFileName(const QString& fileName);
 
 private:
 	QListView* m_pListView = nullptr;

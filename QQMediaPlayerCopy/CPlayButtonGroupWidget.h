@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include "CVolumeButton.h"
 
 class CPlayButtonGroupWidget : public QWidget
 {
@@ -22,5 +23,5 @@ private:
 	QPushButton* m_pPreButton = nullptr;
 	QPushButton* m_pPlayButton = nullptr;
 	QPushButton* m_pNextButton = nullptr;
-	QPushButton* m_pAudioButton = nullptr;
+	CVolumeButton* m_pVolumeButton = nullptr;
 };

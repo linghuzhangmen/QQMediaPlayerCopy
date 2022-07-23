@@ -151,6 +151,8 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
     <ClCompile Include="CTimeSlider.cpp" />
     <ClCompile Include="CVideoWidgetTopWidget.cpp" />
     <ClCompile Include="CVlcKits.cpp" />
+    <ClCompile Include="CVolumeButton.cpp" />
+    <ClCompile Include="CVolumeSliderDialog.cpp" />
     <ClCompile Include="VideoWidget.cpp" />
     <QtRcc Include="QQMediaPlayerCopy.qrc" />
     <QtMoc Include="QQMediaPlayerCopy.h" />
@@ -162,6 +164,8 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonUtils.h" />
+    <QtMoc Include="CVolumeButton.h" />
+    <QtMoc Include="CVolumeSliderDialog.h" />
     <ClInclude Include="qss.h" />
     <QtMoc Include="CTimeSlider.h" />
     <QtMoc Include="CVideoWidgetTopWidget.h" />
@@ -172,6 +176,11 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
     <QtMoc Include="VideoWidget.h" />
     <QtMoc Include="CTitleBar.h" />
     <QtMoc Include="CPlayCtrlBar.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtTranslation Include="Translation_zh_Hans.ts">
+      <BuildAction Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">lupdate_lrelease</BuildAction>
+    </QtTranslation>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

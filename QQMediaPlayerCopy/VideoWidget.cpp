@@ -78,6 +78,11 @@ void VideoWidget::showTopWidgetOpenfilesButton(bool show)
 	m_pTopWidget->showOpenFileBtn(show);
 }
 
+void VideoWidget::setTimeSliderPos(const int value)
+{
+	m_pTopWidget->setSliderValue(value);
+}
+
 void VideoWidget::resizeEvent(QResizeEvent* event)
 {
 	m_dPos = this->pos();

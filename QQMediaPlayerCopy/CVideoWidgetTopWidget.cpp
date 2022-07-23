@@ -54,7 +54,7 @@ CVideoWidgetTopWidget::CVideoWidgetTopWidget(QWidget* p)
 	m_pTimeSlider->setStyleSheet(slider_qss);
 
 	connect(m_pOpenFileButton, &COpenFileButton::sig_openfile, this, &CVideoWidgetTopWidget::sig_OpenFile);
-	connect(m_pOpenFileButton, &COpenFileButton::sig_openFloder, this, &CVideoWidgetTopWidget::sig_OpenFloder);
+	//connect(m_pOpenFileButton, &COpenFileButton::sig_openFloder, this, &CVideoWidgetTopWidget::sig_OpenFloder);
 	connect(m_pOpenrRightlistButton, &QPushButton::clicked, this, &CVideoWidgetTopWidget::sig_OpenPlaylist);
 
 	connect(m_pTimeSlider, &QSlider::sliderMoved, this, &CVideoWidgetTopWidget::onSliderMoved);

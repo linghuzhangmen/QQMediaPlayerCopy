@@ -66,12 +66,13 @@ QQMediaPlayerCopy::QQMediaPlayerCopy(QWidget* parent)
 		exit(EXIT_FAILURE);
 
 	case -2:
-		QMessageBox::information(this, tr("提示"),
+		QMessageBox::information(this, tr("Warn"),
 			tr("libvlc_media_player_new failed"));
 		exit(EXIT_FAILURE);
 	}
 
 	connect(m_pVlc.get(), &CVlcKits::sig_UpdateTimeText, this, &QQMediaPlayerCopy::OnUpdateTimeText);
+	connect(m_pVlc.get(), &CVlcKits::sig_TimeSliderPos, this, &QQMediaPlayerCopy::OnUpdateTimeSlider);
 
 	QVBoxLayout* pVLay = new QVBoxLayout(this);
 	pVLay->setSpacing(0);
@@ -97,9 +98,14 @@ QQMediaPlayerCopy::QQMediaPlayerCopy(QWidget* parent)
 	connect(m_pTitleBar, &CTitleBar::sig_close, this, &QQMediaPlayerCopy::On_Close);
 	connect(m_pTitleBar, &CTitleBar::sig_ShowFullFcreen, this, &QQMediaPlayerCopy::On_ShowFullScreen);
 	connect(m_pTitleBar, &CTitleBar::sig_showMiniMode, this, &QQMediaPlayerCopy::On_ShowMiniMode);
+	connect(m_pTitleBar, &CTitleBar::sig_openfile, this, &QQMediaPlayerCopy::on_openFile);
 	connect(m_pVideoWidget, &VideoWidget::sig_OpenFile, this, &QQMediaPlayerCopy::on_openFile);
 	connect(m_pVideoWidget, &VideoWidget::sig_OpenPlaylist, this, &QQMediaPlayerCopy::On_openRightPlaylist);
 	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_fullScreen, this, &QQMediaPlayerCopy::On_ShowFullScreen);
+	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_playRate, this, &QQMediaPlayerCopy::OnSetPlayRate);
+	connect(m_pPlaylistWidget, &CPlayListWidget::sig_doubleClickFileName,
+		this,
+		&QQMediaPlayerCopy::OnPlay);
 }
 
 void QQMediaPlayerCopy::resizeEvent(QResizeEvent* event)
@@ -114,6 +120,7 @@ void QQMediaPlayerCopy::resizeEvent(QResizeEvent* event)
 		int thisW = this->width();
 		int thisH = this->height();
 
+		//这里和某些功能有冲突，暂时不移动到屏幕中央
 		//this->move((sw - thisW) / 2, (sh - thisH) / 2);
 	}
 }
@@ -154,7 +161,7 @@ void QQMediaPlayerCopy::on_openFile(const QStringList& fileList)
 
 	if (0 != m_pVlc->play(fileList, (void*)(m_pVideoWidget->winId())))
 	{
-		QMessageBox::information(this, "Warn", "play failed");
+		QMessageBox::information(this, tr("Warn"), tr("can't play this video file"));
 		return;
 	}
 
@@ -223,6 +230,29 @@ void QQMediaPlayerCopy::On_timer()
 void QQMediaPlayerCopy::OnUpdateTimeText(const QString& str)
 {
 	m_pPlayCtrlBar->setCurPlayTime(str);
+}
+
+void QQMediaPlayerCopy::OnUpdateTimeSlider(const int& value)
+{
+	m_pVideoWidget->setTimeSliderPos(value);
+}
+
+// 倍速播放
+void QQMediaPlayerCopy::OnSetPlayRate(double rate)
+{
+	m_pVlc->setPlayRate(rate);
+}
+
+void QQMediaPlayerCopy::OnPlay(const QString& fileName)
+{
+	QStringList fileList;
+	fileList << fileName;
+
+	if (0 != m_pVlc->play(fileList, (void*)(m_pVideoWidget->winId())))
+	{
+		QMessageBox::information(this, tr("Warn"), tr("can't play this video file"));
+		return;
+	}
 }
 
 void QQMediaPlayerCopy::On_ShowFullScreen()

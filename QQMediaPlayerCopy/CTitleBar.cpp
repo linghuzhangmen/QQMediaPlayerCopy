@@ -6,11 +6,13 @@
 #include <QMouseEvent>
 #include "qss.h"
 #include <Windows.h>
+#include <QMessageBox>
+#include <QSettings>
+#include <QStandardPaths>
+#include <QFileDialog>
 
 #include <qt_windows.h>
 #pragma comment(lib, "user32.lib")
-
-
 
 
 CTitleBar::CTitleBar(QWidget *parent)
@@ -40,16 +42,16 @@ void CTitleBar::initUI()
 
 	m_pLogoBtn = new QPushButton(this);
 	m_pLogoBtn->setMinimumWidth(138);
-	m_pLogoBtn->setText("Media Player");
+	m_pLogoBtn->setText(tr("Media Player"));
 	m_pLogoBtn->setStyleSheet(QString::fromStdString(logo_button_qss));
 
 	QMenu* pMenu = new QMenu(this);
 	pMenu->setStyleSheet(QString::fromStdString(menu_qss));
 
-	QAction* pAc1 = new QAction("open file", this);
-	QAction* pAc2 = new QAction("open floder", this);
-	QAction* pAc3 = new QAction("about", this);
-	QAction* pAc4 = new QAction("exit", this);
+	QAction* pAc1 = new QAction(tr("open file"), this);
+	QAction* pAc2 = new QAction(tr("open floder"), this);
+	QAction* pAc3 = new QAction(tr("about"), this);
+	QAction* pAc4 = new QAction(tr("exit"), this);
 
 	pMenu->addAction(pAc1);
 	pMenu->addAction(pAc2);
@@ -57,6 +59,11 @@ void CTitleBar::initUI()
 	pMenu->addAction(pAc4);
 
 	m_pLogoBtn->setMenu(pMenu);
+
+	connect(pAc1, &QAction::triggered, this, &CTitleBar::openFile);
+	connect(pAc2, &QAction::triggered, this, &CTitleBar::openFloder);
+	connect(pAc3, &QAction::triggered, this, &CTitleBar::about);
+	connect(pAc4, &QAction::triggered, this, &CTitleBar::exit);
 
 	m_pFileNameLabel = new QLabel(this);
 	m_pFileNameLabel->setMinimumWidth(60);
@@ -206,3 +213,88 @@ void CTitleBar::onClicked()
 	}
 }
 
+void CTitleBar::openFile()
+{
+	QString cfgPath = "HKEY_CURRENT_USER\\Software\\QQMediaPlayerCopy";
+	QSettings settings(cfgPath, QSettings::NativeFormat);
+	QString lastPath = settings.value("openfile_path").toString();  // 从注册表获取路径
+
+	if (lastPath.isEmpty())
+	{
+		lastPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);  //获取默认的文档路径 
+	}
+
+	//可以同时打开多个文件
+	QStringList filelist = QFileDialog::getOpenFileNames(
+		this,
+		tr("select video file"),
+		lastPath,
+		tr("video file (*.flv *.rmvb *.avi *.mp4);; all files(*.*);; "));
+
+	if (filelist.isEmpty())
+	{
+		return;
+	}
+
+	int end = filelist[0].lastIndexOf("/");
+	QString tmppath = filelist[0].left(end + 1);
+	settings.setValue("openfile_path", tmppath);  // 将当前打开的路径写入到注册表
+
+	emit sig_openfile(filelist);
+}
+
+void CTitleBar::openFloder()
+{
+	QString cfgPath = "HKEY_CURRENT_USER\\Software\\QQMediaPlayerCopy";
+	QSettings settings(cfgPath, QSettings::NativeFormat);
+	QString lastPath = settings.value("openfile_path").toString();  // 从注册表获取路径
+
+	if (lastPath.isEmpty())
+	{
+		lastPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);  //获取默认的文档路径 
+	}
+
+	QString path = QFileDialog::getExistingDirectory(this,
+		tr("choose video directory"), lastPath);
+
+	if (path.isEmpty())
+	{
+		return;
+	}
+
+	QDir dir(path);
+
+	QStringList nameFilters;
+	nameFilters << "*.mp4" << "*.flv" << "*.rmvb" << "*.avi";
+
+	//将过滤后的文件名称存入到files列表中
+	QStringList files = dir.entryList(nameFilters, QDir::Files | QDir::Readable, QDir::Name);
+
+	int _size = files.size();
+	if (_size == 0)
+	{
+		QMessageBox::information(this, tr("Warn"), tr("this floder no video files"));
+		return;
+	}
+
+	QStringList fileList;
+	for (int i = 0; i < _size; i++)
+	{
+		QString fileName = path + "/" + files[i];
+		fileList << fileName;
+	}
+
+	settings.setValue("openfile_path", path);  // 将当前打开的路径写入到注册表
+
+	emit sig_openfile(fileList);
+}
+
+void CTitleBar::about()
+{
+	QMessageBox::information(this, tr("tips"), tr("Qt libvlc mediaplayer"));
+}
+
+void CTitleBar::exit()
+{
+	::exit(0);
+}

@@ -26,9 +26,14 @@ signals:
 	void sig_close();
 	void sig_ShowFullFcreen();
 	void sig_showMiniMode(); // √‘ƒ„–°¥∞œ‘ æ
+	void sig_openfile(const QStringList& fileList);
 
 private slots:
 	void onClicked();
+	void openFile();
+	void openFloder();
+	void about();
+	void exit();
 
 private:
 	QPushButton* m_pLogoBtn;

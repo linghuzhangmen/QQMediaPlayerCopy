@@ -46,6 +46,8 @@ public:
 
     void setVideoPostion(int value);
 
+    void setPlayRate(double rate);
+
 signals:
     void sig_TimeSliderPos(const int& value);
     void sig_VolumeSliderPos(const int& value);
