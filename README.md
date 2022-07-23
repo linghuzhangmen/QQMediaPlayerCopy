@@ -1,4 +1,10 @@
 # 更新说明
+2022-07-23
+<br/>
+(1) 修改界面ui，增加翻译文件，解决Qt中文乱码问题
+<br/>
+(2) 增加倍速播放功能
+<br/>
 2022-07-17
 <br/>
 (1) main分支使用libvlc作为播放组件，player_SDL任然使用ffmpeg、SDL解码播放
@@ -12,13 +18,25 @@
 
 # QQMediaPlayerCopy项目介绍
 
-C++ Qt 高仿Windows端QQ影音视频播放器, 界面如下
+使用C++ Qt开发的Windows端视频播放器，高仿QQ影音界面, 如下
 
-![image](https://user-images.githubusercontent.com/42860254/155153215-aafac438-ad2f-4fcd-95c4-5e303aa9ac15.png)
+![image](https://user-images.githubusercontent.com/42860254/180600270-91697fc3-36f9-4830-bbd7-9cd33f7640e1.png)
+
 
 播放界面
 ![3](https://user-images.githubusercontent.com/42860254/155159626-0ccfb947-336b-4ea3-9716-60ce1b7b9111.png)
-
+<br/>
+主要功能
++ 支持mp4、avi、flv等视频文件的播放
++ 支持选择多个文件循环播放
++ 支持打开目录进行播放
++ 双击全屏播放
++ 支持倍速播放，0.5~~2倍速播放
+<br/>
+其它待开发功能
++ rtmp流播放
++ 视频进度调节、音量调节
++ 界面部分功能优化
 <br/>
 
 # 分支说明
