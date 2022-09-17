@@ -54,7 +54,7 @@ void vlc_callback(const struct libvlc_event_t* p_event, void* p_data)
 
         case libvlc_MediaPlayerMediaChanged:
         {
-            cout << "libvlc_MediaPlayerMediaChanged" << endl;
+            std::cout << "libvlc_MediaPlayerMediaChanged" << endl;
 
             pThis->addCurrentIndex();
             int _index = pThis->getCurrentIndex();
@@ -78,8 +78,31 @@ void vlc_callback(const struct libvlc_event_t* p_event, void* p_data)
             pThis->setCurrentDuration(_duration);
         }
         break;
+
+
+        // 加载完成
+        //case libvlc_MediaPlayerVout:
+        //{
+        //    emit obj->playAllTime(obj->GetTime() / 1000);
+        //    break;
+        //}
+        //// media player 位置改变
+        //case libvlc_MediaPlayerPositionChanged:
+        //{
+        //    int time = obj->GetPlayTime();
+        //    emit obj->playCurrentTime(time / 1000);
+        //    break;
+        //}
+        //// 播放完成
+        //case libvlc_MediaPlayerEndReached:
+        //{
+        //    obj->GetPlayState();
+        //    obj->PlayEnd();
+        //    break;
+        //}
         }
     }
+    
 }
 
 CVlcKits::CVlcKits()
@@ -189,18 +212,18 @@ int CVlcKits::play(QStringList fileList, void* hwnd)
 
         libvlc_media_list_add_media(m_medialist, _pMedia);
 
-        cout << "before parse" << endl;
+        //cout << "before parse" << endl;
         libvlc_media_parse(_pMedia);
-        cout << "after parse" << endl;
+        //cout << "after parse" << endl;
         libvlc_time_t _duration = libvlc_media_get_duration(_pMedia);
         if (_duration < -1)
         {
             return -2;
         }
 
-        cout << "before push" << endl;
+        //cout << "before push" << endl;
         m_vecDurations.push_back(_duration / 1000);
-        cout << "after push" << endl;
+        //cout << "after push" << endl;
 
         libvlc_media_release(_pMedia);
     }
@@ -212,6 +235,35 @@ int CVlcKits::play(QStringList fileList, void* hwnd)
     libvlc_media_list_player_set_media_player(m_pMediaPlayerList, m_pMediaPlayer);
     libvlc_media_player_set_hwnd(m_pMediaPlayer, hwnd);
     libvlc_media_list_player_play(m_pMediaPlayerList);
+
+    return 0;
+}
+
+// 播放网络流
+int CVlcKits::play(const QString& url, void* hwnd)
+{
+    libvlc_media_t* m;
+    m = libvlc_media_new_location(m_pInstance, url.toStdString().data());
+    if (m)
+    {
+        m_pMediaPlayer = libvlc_media_player_new_from_media(m);
+        if (m_pMediaPlayer)
+        {
+            libvlc_media_parse(m);
+            m_pEvent_manager = libvlc_media_player_event_manager(m_pMediaPlayer);
+            libvlc_event_attach(m_pEvent_manager, libvlc_MediaPlayerVout, vlc_callback, this);
+            libvlc_event_attach(m_pEvent_manager, libvlc_MediaPlayerEndReached, vlc_callback, this);
+            libvlc_event_attach(m_pEvent_manager, libvlc_MediaPlayerPositionChanged, vlc_callback, this);
+            if (hwnd != nullptr)
+                libvlc_media_player_set_hwnd(m_pMediaPlayer, hwnd);
+            
+            //Play();
+            if (m_pMediaPlayer)
+            {
+                return  libvlc_media_player_play(m_pMediaPlayer);
+            }
+        }
+    }
 
     return 0;
 }

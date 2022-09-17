@@ -46,6 +46,7 @@ signals:
 	void sig_Totalms(const qint64& duration);   //发给主界面
 	void sig_VideoPositionChanged(const qint64& pos);   //发给主界面
 	void sig_SliderMoved(int value);
+	void sig_OpenUrl(const QString& url);
 
 private:
 	QPoint m_dPos;   //VideoWidget相对于父窗口的位置

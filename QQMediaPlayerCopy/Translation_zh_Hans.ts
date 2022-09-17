@@ -2,40 +2,83 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>CNetStreamDlg</name>
+    <message>
+        <location filename="CNetStreamDlg.ui" line="14"/>
+        <source>CNetStreamDlg</source>
+        <translation>网络流</translation>
+    </message>
+    <message>
+        <location filename="CNetStreamDlg.ui" line="20"/>
+        <source>TextLabel</source>
+        <translation>请输入网络流地址</translation>
+    </message>
+    <message>
+        <location filename="CNetStreamDlg.ui" line="45"/>
+        <source>PushButton</source>
+        <translation>开始播放</translation>
+    </message>
+    <message>
+        <location filename="CNetStreamDlg.cpp" line="11"/>
+        <source>start play</source>
+        <translation>开始播放</translation>
+    </message>
+    <message>
+        <location filename="CNetStreamDlg.cpp" line="12"/>
+        <source>please intput url</source>
+        <translation>请输入网络流地址</translation>
+    </message>
+    <message>
+        <location filename="CNetStreamDlg.cpp" line="29"/>
+        <source>tips</source>
+        <translation>提示</translation>
+    </message>
+    <message>
+        <location filename="CNetStreamDlg.cpp" line="29"/>
+        <source>url is empty</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>COpenFileButton</name>
     <message>
-        <location filename="COpenFileButton.cpp" line="21"/>
-        <location filename="COpenFileButton.cpp" line="100"/>
+        <location filename="COpenFileButton.cpp" line="22"/>
+        <location filename="COpenFileButton.cpp" line="101"/>
         <source>open file</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="COpenFileButton.cpp" line="101"/>
+        <location filename="COpenFileButton.cpp" line="102"/>
         <source>open floder</source>
         <translation>打开文件夹</translation>
     </message>
     <message>
-        <location filename="COpenFileButton.cpp" line="174"/>
+        <location filename="COpenFileButton.cpp" line="103"/>
+        <source>open net stream</source>
+        <translation>打开网络流</translation>
+    </message>
+    <message>
+        <location filename="COpenFileButton.cpp" line="178"/>
         <source>select video file</source>
         <translation>选择视频文件</translation>
     </message>
     <message>
-        <location filename="COpenFileButton.cpp" line="176"/>
+        <location filename="COpenFileButton.cpp" line="180"/>
         <source>video file (*.flv *.rmvb *.avi *.mp4);; all files(*.*);; </source>
         <translation>视频文件((*.flv *.rmvb *.avi *.mp4);; all files(*.*);;)</translation>
     </message>
     <message>
-        <location filename="COpenFileButton.cpp" line="202"/>
+        <location filename="COpenFileButton.cpp" line="206"/>
         <source>choose video directory</source>
         <translation>选择视频目录</translation>
     </message>
     <message>
-        <location filename="COpenFileButton.cpp" line="220"/>
+        <location filename="COpenFileButton.cpp" line="224"/>
         <source>Warn</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="COpenFileButton.cpp" line="220"/>
+        <location filename="COpenFileButton.cpp" line="224"/>
         <source>this floder no video files</source>
         <translation>该文件夹没有视频文件</translation>
     </message>
@@ -87,73 +130,78 @@
 <context>
     <name>CTitleBar</name>
     <message>
-        <location filename="CTitleBar.cpp" line="45"/>
+        <location filename="CTitleBar.cpp" line="46"/>
         <source>Media Player</source>
         <translation>Qt媒体播放器</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="51"/>
+        <location filename="CTitleBar.cpp" line="52"/>
         <source>open file</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="52"/>
+        <location filename="CTitleBar.cpp" line="53"/>
         <source>open floder</source>
         <translation>打开文件夹</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="53"/>
+        <location filename="CTitleBar.cpp" line="54"/>
+        <source>open net stream</source>
+        <translation>打开网络流</translation>
+    </message>
+    <message>
+        <location filename="CTitleBar.cpp" line="55"/>
         <source>about</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="54"/>
+        <location filename="CTitleBar.cpp" line="56"/>
         <source>exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="84"/>
-        <location filename="CTitleBar.cpp" line="200"/>
+        <location filename="CTitleBar.cpp" line="88"/>
+        <location filename="CTitleBar.cpp" line="204"/>
         <source>set to top window</source>
         <translation>置顶</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="207"/>
+        <location filename="CTitleBar.cpp" line="211"/>
         <source>cancal top window</source>
         <translation>取消置顶</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="230"/>
+        <location filename="CTitleBar.cpp" line="234"/>
         <source>select video file</source>
         <translation>选择视频文件</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="232"/>
+        <location filename="CTitleBar.cpp" line="236"/>
         <source>video file (*.flv *.rmvb *.avi *.mp4);; all files(*.*);; </source>
         <translation>视频文件((*.flv *.rmvb *.avi *.mp4);; all files(*.*);;)</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="258"/>
+        <location filename="CTitleBar.cpp" line="262"/>
         <source>choose video directory</source>
         <translation>选择视频目录</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="276"/>
+        <location filename="CTitleBar.cpp" line="280"/>
         <source>Warn</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="276"/>
+        <location filename="CTitleBar.cpp" line="280"/>
         <source>this floder no video files</source>
         <translation>该文件夹没有视频文件</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="294"/>
+        <location filename="CTitleBar.cpp" line="308"/>
         <source>tips</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="294"/>
+        <location filename="CTitleBar.cpp" line="308"/>
         <source>Qt libvlc mediaplayer</source>
         <translation></translation>
     </message>
@@ -161,21 +209,21 @@
 <context>
     <name>QQMediaPlayerCopy</name>
     <message>
-        <location filename="QQMediaPlayerCopy.cpp" line="64"/>
-        <location filename="QQMediaPlayerCopy.cpp" line="69"/>
-        <location filename="QQMediaPlayerCopy.cpp" line="164"/>
-        <location filename="QQMediaPlayerCopy.cpp" line="253"/>
+        <location filename="MainWindow.cpp" line="64"/>
+        <location filename="MainWindow.cpp" line="69"/>
+        <location filename="MainWindow.cpp" line="166"/>
+        <location filename="MainWindow.cpp" line="270"/>
         <source>Warn</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="QQMediaPlayerCopy.cpp" line="65"/>
+        <location filename="MainWindow.cpp" line="65"/>
         <source>libvlc_new failed</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="QQMediaPlayerCopy.cpp" line="164"/>
-        <location filename="QQMediaPlayerCopy.cpp" line="253"/>
+        <location filename="MainWindow.cpp" line="166"/>
+        <location filename="MainWindow.cpp" line="270"/>
         <source>can&apos;t play this video file</source>
         <translation>不支持该视频文件的播放</translation>
     </message>
@@ -184,7 +232,7 @@
         <translation type="vanished">提示</translation>
     </message>
     <message>
-        <location filename="QQMediaPlayerCopy.cpp" line="70"/>
+        <location filename="MainWindow.cpp" line="70"/>
         <source>libvlc_media_player_new failed</source>
         <translation></translation>
     </message>

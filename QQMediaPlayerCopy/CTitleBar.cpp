@@ -10,6 +10,7 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QFileDialog>
+#include "CNetStreamDlg.h"
 
 #include <qt_windows.h>
 #pragma comment(lib, "user32.lib")
@@ -50,20 +51,23 @@ void CTitleBar::initUI()
 
 	QAction* pAc1 = new QAction(tr("open file"), this);
 	QAction* pAc2 = new QAction(tr("open floder"), this);
-	QAction* pAc3 = new QAction(tr("about"), this);
-	QAction* pAc4 = new QAction(tr("exit"), this);
+	QAction* pAc3 = new QAction(tr("open net stream"), this);
+	QAction* pAc4 = new QAction(tr("about"), this);
+	QAction* pAc5 = new QAction(tr("exit"), this);
 
 	pMenu->addAction(pAc1);
 	pMenu->addAction(pAc2);
 	pMenu->addAction(pAc3);
 	pMenu->addAction(pAc4);
+	pMenu->addAction(pAc5);
 
 	m_pLogoBtn->setMenu(pMenu);
 
 	connect(pAc1, &QAction::triggered, this, &CTitleBar::openFile);
 	connect(pAc2, &QAction::triggered, this, &CTitleBar::openFloder);
-	connect(pAc3, &QAction::triggered, this, &CTitleBar::about);
-	connect(pAc4, &QAction::triggered, this, &CTitleBar::exit);
+	connect(pAc3, &QAction::triggered, this, &CTitleBar::openNetStream);
+	connect(pAc4, &QAction::triggered, this, &CTitleBar::about);
+	connect(pAc5, &QAction::triggered, this, &CTitleBar::exit);
 
 	m_pFileNameLabel = new QLabel(this);
 	m_pFileNameLabel->setMinimumWidth(60);
@@ -287,6 +291,16 @@ void CTitleBar::openFloder()
 	settings.setValue("openfile_path", path);  // 将当前打开的路径写入到注册表
 
 	emit sig_openfile(fileList);
+}
+
+void CTitleBar::openNetStream()
+{
+	CNetStreamDlg dlg;
+	if (dlg.exec() == QDialog::Accepted)
+	{
+		QString strText = dlg.getUrl();
+		emit sig_openUrl(strText);
+	}
 }
 
 void CTitleBar::about()

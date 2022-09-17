@@ -64,6 +64,7 @@ protected slots:
     void On_ShowFullScreen();
     void On_ShowMiniMode();
 	void on_openFile(const QStringList& fileList);
+    void on_openUrl(const QString& url);
     void On_openRightPlaylist();
     void On_timer();
     void OnUpdateTimeText(const QString& str);

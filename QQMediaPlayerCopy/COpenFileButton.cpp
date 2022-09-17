@@ -7,6 +7,7 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QMessageBox>
+#include "CNetStreamDlg.h"
 
 #define LEFT_BUTTON_WIDTH 145
 #define RIGHT_BUTTON_WIDTH 60
@@ -99,8 +100,10 @@ COpenFileButton::COpenFileButton(QWidget* p) : QWidget(p)
 	pMenu->setFixedWidth(m_totalWidth);
 	QAction* pAc1 = new QAction(tr("open file"), this);
 	QAction* pAc2 = new QAction(tr("open floder"), this);
+	QAction* pAc3 = new QAction(tr("open net stream"), this);
 	pMenu->addAction(pAc1);
 	pMenu->addAction(pAc2);
+	pMenu->addAction(pAc3);
 	m_pArrowButton->setMenu(pMenu);
 	pMenu->installEventFilter(this);  //设置事件过滤，调整弹出菜单的位置
 
@@ -120,6 +123,7 @@ COpenFileButton::COpenFileButton(QWidget* p) : QWidget(p)
 	connect(m_pOpenFileButton, &QPushButton::clicked, this, &COpenFileButton::on_openfile);
 	connect(pAc1, &QAction::triggered, this, &COpenFileButton::on_openfile);
 	connect(pAc2, &QAction::triggered, this, &COpenFileButton::on_openFloder);
+	connect(pAc3, &QAction::triggered, this, &COpenFileButton::on_openNetStream);
 }
 
 COpenFileButton::~COpenFileButton()
@@ -231,4 +235,14 @@ void COpenFileButton::on_openFloder()
 	settings.setValue("openfile_path", path);  // 将当前打开的路径写入到注册表
 	
 	emit sig_openfile(fileList);
+}
+
+void COpenFileButton::on_openNetStream()
+{
+	CNetStreamDlg dlg;
+	if (dlg.exec() == QDialog::Accepted)
+	{
+		QString strText = dlg.getUrl();
+		emit sig_openUrl(strText);
+	}
 }

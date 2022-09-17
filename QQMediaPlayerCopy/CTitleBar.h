@@ -27,11 +27,13 @@ signals:
 	void sig_ShowFullFcreen();
 	void sig_showMiniMode(); // √‘ƒ„–°¥∞œ‘ æ
 	void sig_openfile(const QStringList& fileList);
+	void sig_openUrl(const QString& url);
 
 private slots:
 	void onClicked();
 	void openFile();
 	void openFloder();
+	void openNetStream();
 	void about();
 	void exit();
 

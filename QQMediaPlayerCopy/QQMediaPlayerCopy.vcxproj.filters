@@ -29,7 +29,7 @@
     <QtMoc Include="QQMediaPlayerCopy.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="QQMediaPlayerCopy.cpp">
+    <ClCompile Include="MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,6 +71,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CVolumeSliderDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CNetStreamDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,10 +119,18 @@
     <QtMoc Include="CVolumeSliderDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="CNetStreamDlg.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="Translation_zh_Hans.ts">
       <Filter>Translation Files</Filter>
     </QtTranslation>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="CNetStreamDlg.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

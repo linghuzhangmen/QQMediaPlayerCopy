@@ -36,6 +36,7 @@ public:
     void setCurrentDuration(libvlc_time_t value);
 
     int play(QStringList fileList, void* hwnd);
+    int play(const QString& url, void* hwnd);
     void play();
     void pause();
     void stop();

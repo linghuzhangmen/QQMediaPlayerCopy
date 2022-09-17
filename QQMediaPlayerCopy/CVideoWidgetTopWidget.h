@@ -29,6 +29,7 @@ protected:
 signals:
 	void sig_OpenFile(const QStringList& fileList);
 	void sig_OpenFloder(QString path);
+	void sig_OpenUrl(const QString& url);
 	void sig_OpenPlaylist();
 	void sig_SliderMove(int value);
 

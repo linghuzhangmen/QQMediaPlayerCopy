@@ -14,6 +14,7 @@ public:
 private slots:
 	void on_openfile();
 	void on_openFloder();
+	void on_openNetStream();
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
@@ -21,7 +22,7 @@ protected:
 
 signals:
 	void sig_openfile(const QStringList& fileList);
-	//void sig_openFloder(QString path);
+	void sig_openUrl(const QString& url);
 
 private:
 	QPushButton* m_pOpenFileButton = nullptr;

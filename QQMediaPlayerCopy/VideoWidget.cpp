@@ -41,6 +41,7 @@ VideoWidget::VideoWidget(QWidget* p) :
 	m_pTopWidget = new CVideoWidgetTopWidget(this);
 
 	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_OpenFile, this, &VideoWidget::sig_OpenFile);
+	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_OpenUrl, this, &VideoWidget::sig_OpenUrl);
 	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_OpenPlaylist, this, &VideoWidget::sig_OpenPlaylist);
 	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_SliderMove, this, &VideoWidget::onSliderMoved);
 }

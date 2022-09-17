@@ -99,7 +99,9 @@ QQMediaPlayerCopy::QQMediaPlayerCopy(QWidget* parent)
 	connect(m_pTitleBar, &CTitleBar::sig_ShowFullFcreen, this, &QQMediaPlayerCopy::On_ShowFullScreen);
 	connect(m_pTitleBar, &CTitleBar::sig_showMiniMode, this, &QQMediaPlayerCopy::On_ShowMiniMode);
 	connect(m_pTitleBar, &CTitleBar::sig_openfile, this, &QQMediaPlayerCopy::on_openFile);
+	connect(m_pTitleBar, &CTitleBar::sig_openUrl, this, &QQMediaPlayerCopy::on_openUrl);
 	connect(m_pVideoWidget, &VideoWidget::sig_OpenFile, this, &QQMediaPlayerCopy::on_openFile);
+	connect(m_pVideoWidget, &VideoWidget::sig_OpenUrl, this, &QQMediaPlayerCopy::on_openUrl);
 	connect(m_pVideoWidget, &VideoWidget::sig_OpenPlaylist, this, &QQMediaPlayerCopy::On_openRightPlaylist);
 	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_fullScreen, this, &QQMediaPlayerCopy::On_ShowFullScreen);
 	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_playRate, this, &QQMediaPlayerCopy::OnSetPlayRate);
@@ -177,6 +179,21 @@ void QQMediaPlayerCopy::on_openFile(const QStringList& fileList)
 
 	m_pPlayCtrlBar->showTimeLabel(true);
 	
+	m_pTimer = new QTimer(this);
+	m_pTimer->start(3000);
+	connect(m_pTimer, &QTimer::timeout, this, &QQMediaPlayerCopy::On_timer);
+}
+
+// 打开网络媒体流
+// rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4
+void QQMediaPlayerCopy::on_openUrl(const QString& url)
+{
+	m_pVlc->play(url, (void*)(m_pVideoWidget->winId()));
+
+	m_isPlay = true;
+
+	m_pPlayCtrlBar->showTimeLabel(true);
+
 	m_pTimer = new QTimer(this);
 	m_pTimer->start(3000);
 	connect(m_pTimer, &QTimer::timeout, this, &QQMediaPlayerCopy::On_timer);
