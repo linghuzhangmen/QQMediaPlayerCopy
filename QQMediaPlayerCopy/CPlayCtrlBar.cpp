@@ -14,7 +14,7 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 {
 	setAttribute(Qt::WA_StyledBackground);  // 禁止父窗口样式影响子控件样式
 
-	setFixedHeight(80);
+	setFixedHeight(45);
 	setStyleSheet("QWidget{background-color:rgb(17,17,17);}");
 
 	QString label_qss = "QLabel{font-family:Microsoft YaHei; font-size:18px; color:rgb(255,255,255);}";
@@ -28,12 +28,12 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 
 	m_pSpeedButton = new QPushButton(this);
 	m_pSpeedButton->setText(tr("1.0speed"));
-	m_pSpeedButton->setFixedSize(65, 35);
+	m_pSpeedButton->setFixedSize(40, 24);
 
 	m_pSpeedButton->setStyleSheet("QPushButton{ \
 		background-color:rgb(64, 70, 80);color:white;border:none; \
-		text-align:right;font-size: 18px; \
-		border-radius:10px;} \
+		text-align:right;font-size: 12px; \
+		border-radius:6px;} \
 		QPushButton:hover{background-color:rgb(99, 99, 99);border:none;} \
 		QPushButton:pressed{border:none;} \
 		QPushButton::menu-indicator{image:none}");

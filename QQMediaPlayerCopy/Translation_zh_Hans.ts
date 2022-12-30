@@ -130,78 +130,78 @@
 <context>
     <name>CTitleBar</name>
     <message>
-        <location filename="CTitleBar.cpp" line="46"/>
+        <location filename="CTitleBar.cpp" line="49"/>
         <source>Media Player</source>
         <translation>Qt媒体播放器</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="52"/>
+        <location filename="CTitleBar.cpp" line="55"/>
         <source>open file</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="53"/>
+        <location filename="CTitleBar.cpp" line="56"/>
         <source>open floder</source>
         <translation>打开文件夹</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="54"/>
+        <location filename="CTitleBar.cpp" line="57"/>
         <source>open net stream</source>
         <translation>打开网络流</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="55"/>
+        <location filename="CTitleBar.cpp" line="58"/>
         <source>about</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="56"/>
+        <location filename="CTitleBar.cpp" line="59"/>
         <source>exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="88"/>
-        <location filename="CTitleBar.cpp" line="204"/>
+        <location filename="CTitleBar.cpp" line="91"/>
+        <location filename="CTitleBar.cpp" line="203"/>
         <source>set to top window</source>
         <translation>置顶</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="211"/>
+        <location filename="CTitleBar.cpp" line="210"/>
         <source>cancal top window</source>
         <translation>取消置顶</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="234"/>
+        <location filename="CTitleBar.cpp" line="233"/>
         <source>select video file</source>
         <translation>选择视频文件</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="236"/>
+        <location filename="CTitleBar.cpp" line="235"/>
         <source>video file (*.flv *.rmvb *.avi *.mp4);; all files(*.*);; </source>
         <translation>视频文件((*.flv *.rmvb *.avi *.mp4);; all files(*.*);;)</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="262"/>
+        <location filename="CTitleBar.cpp" line="261"/>
         <source>choose video directory</source>
         <translation>选择视频目录</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="280"/>
+        <location filename="CTitleBar.cpp" line="279"/>
         <source>Warn</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="280"/>
+        <location filename="CTitleBar.cpp" line="279"/>
         <source>this floder no video files</source>
         <translation>该文件夹没有视频文件</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="308"/>
+        <location filename="CTitleBar.cpp" line="307"/>
         <source>tips</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="308"/>
+        <location filename="CTitleBar.cpp" line="307"/>
         <source>Qt libvlc mediaplayer</source>
         <translation></translation>
     </message>

@@ -38,7 +38,10 @@ void CTitleBar::initUI()
 {
 	//禁止父窗口影响子窗口样式
 	setAttribute(Qt::WA_StyledBackground);
-	this->setFixedHeight(32 + 5 * 2);
+	int w = 20;
+	int h = 20;
+	int margin = 5;
+	this->setFixedHeight(h + margin * 2);
 	this->setStyleSheet("background-color:rgb(54,54,54)");
 
 	m_pLogoBtn = new QPushButton(this);
@@ -79,28 +82,30 @@ void CTitleBar::initUI()
 	m_pMinimodeBtn = new QPushButton(this);
 	m_pMinimodeBtn->setObjectName("m_pMinimodeBtn");
 	m_pMinimodeBtn->setText("");
-	m_pMinimodeBtn->setFixedSize(32, 32);
+	m_pMinimodeBtn->setFixedSize(w, h);
 	m_pMinimodeBtn->setStyleSheet(QString::fromStdString(minimode_qss));
 
 	m_pSettopBtn = new QPushButton(this);
 	m_pSettopBtn->setObjectName("m_pSettopBtn");
 	m_pSettopBtn->setText("");
 	m_pSettopBtn->setToolTip(tr("set to top window"));
-	m_pSettopBtn->setFixedSize(32, 32);
+	m_pSettopBtn->setFixedSize(w, h);
 	m_pSettopBtn->setStyleSheet(QString::fromStdString(settop_qss));
 
 	m_pMinBtn = new QPushButton(this);
-	m_pMinBtn->setFixedSize(32, 32);
+	m_pMinBtn->setFixedSize(w, h);
 	m_pMinBtn->setStyleSheet(QString::fromStdString(min_qss));
 
 	m_pMaxBtn = new QPushButton(this);
 	m_pMaxBtn->setObjectName("m_pMaxBtn");
 	m_pMaxBtn->setText("");
-	m_pMaxBtn->setFixedSize(32, 32);
-	m_pMaxBtn->setStyleSheet(QString::fromStdString(max_qss));
+	m_pMaxBtn->setFixedSize(w, h);
+	m_pMaxBtn->setStyleSheet(QString::fromStdString(max_normal_qss));
 
 	m_pCloseBtn = new QPushButton(this);
-	m_pCloseBtn->setFixedSize(32, 32);
+	m_pCloseBtn->setObjectName("m_pCloseBtn");
+	m_pCloseBtn->setText("");
+	m_pCloseBtn->setFixedSize(w, h);
 	m_pCloseBtn->setStyleSheet(QString::fromStdString(close_qss));
 
 	QHBoxLayout* pHlay = new QHBoxLayout(this);
@@ -125,7 +130,7 @@ void CTitleBar::initUI()
 
 	pHlay->addWidget(m_pCloseBtn);
 
-	pHlay->setContentsMargins(5, 5, 5, 5);
+	pHlay->setContentsMargins(margin, margin, margin, margin);
 
 	connect(m_pMinBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
 	connect(m_pMaxBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
@@ -175,18 +180,12 @@ void CTitleBar::onClicked()
 		if (pWindow->isMaximized())
 		{
 			pWindow->showNormal();
-			m_pMaxBtn->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/max.svg);border:none}" \
-				"QPushButton:hover{" \
-				"background-color:rgb(99, 99, 99);" \
-				"background-image:url(:/titleBar/resources/titleBar/max_hover.svg);border:none;}");
+			m_pMaxBtn->setStyleSheet(QString::fromStdString(max_normal_qss));
 		}
 		else
 		{
 			pWindow->showMaximized();
-			m_pMaxBtn->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/normal.svg);border:none}" \
-				"QPushButton:hover{" \
-				"background-color:rgb(99, 99, 99);" \
-				"background-image:url(:/titleBar/resources/titleBar/normal_hover.svg);border:none;}");
+			m_pMaxBtn->setStyleSheet(QString::fromStdString(maxed_qss));
 		}
 	}
 	else if (pButton == m_pMinimodeBtn)

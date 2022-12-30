@@ -1,3 +1,11 @@
+/*
+
+图片资源说明
+
+标题栏 只用一张图，大小16*16，#fff
+
+*/
+
 #pragma once
 
 #include <string>
@@ -5,22 +13,24 @@
 std::string logo_button_qss = R"(
 	QPushButton{
 		background-color:rgb(54,54,54);
-		border:none;
 		font-family:Microsoft YaHei;
-		font-size:18px; 
+		font-size:14px; 
 		color:rgb(255,255,255);
+		border:none;
 	}
 
 	QPushButton::menu-indicator:open{
 		image:url(:/titleBar/resources/titleBar/down_arrow.svg);
 		subcontrol-position:right center;
-		subcontrol-origin:padding;border:none;
+		subcontrol-origin:padding;
+		border:none
 	}
 
 	QPushButton::menu-indicator:closed{
 		image:url(:/titleBar/resources/titleBar/up_arrow.svg);
 		subcontrol-position:right center;
-		subcontrol-origin:padding;border:none;
+		subcontrol-origin:padding;
+		border:none
 	})";
 
 std::string menu_qss = R"(
@@ -46,95 +56,128 @@ std::string menu_qss = R"(
 
 std::string minimode_qss = R"(
 	QPushButton#m_pMinimodeBtn{
-		background-image:url(:/titleBar/resources/titleBar/minimode.svg);
+		background-image:url(:/titleBar/resources/titleBar/minimode.png);
+		background-position:center; 
+		background-repeat: no-repeat;
 		border:none
 	}
 
 	QPushButton#m_pMinimodeBtn:hover{
 		background-color:rgb(99, 99, 99);
-		background-image:url(:/titleBar/resources/titleBar/minimode_hover.svg);
+		background-image:url(:/titleBar/resources/titleBar/minimode.png);
 		border:none;
 	}
 )";
 
 std::string settop_qss = R"(
 	QPushButton#m_pSettopBtn{
-		background-image:url(:/titleBar/resources/titleBar/settop.svg);
+		background-image:url(:/titleBar/resources/titleBar/settop.png);
+		background-position:center; 
+		background-repeat: no-repeat;
 		border:none
 	}
 
 	QPushButton#m_pSettopBtn:hover{
 		background-color:rgb(99, 99, 99);
-		background-image:url(:/titleBar/resources/titleBar/settop_hover.svg);
+		background-image:url(:/titleBar/resources/titleBar/settop.png);
 		border:none
 	}
 )";
 
 std::string settoped_qss = R"(
 	QPushButton#m_pSettopBtn{
-		background-image:url(:/titleBar/resources/titleBar/settoped);
+		background-image:url(:/titleBar/resources/titleBar/settop_cancel.png);
+		background-position:center; 
+		background-repeat: no-repeat;
 		border:none
 	}
 
 	QPushButton#m_pSettopBtn:hover{
 		background-color:rgb(99, 99, 99);
-		background-image:url(:/titleBar/resources/titleBar/settoped);
+		background-image:url(:/titleBar/resources/titleBar/settop_cancel.png);
 		border:none
 	}
 )";
 
 std::string min_qss = R"(
 	QPushButton{
-		background-image:url(:/titleBar/resources/titleBar/min.svg);
+		background-image:url(:/titleBar/resources/titleBar/min.png);
+		background-position:center; 
+		background-repeat: no-repeat;
 		border:none
 	}
 
 	QPushButton:hover{
 		background-color:rgb(99, 99, 99);
-		background-image:url(:/titleBar/resources/titleBar/min_hover.svg);
+		background-image:url(:/titleBar/resources/titleBar/min.png);
 		border:none;
 	}
 
 	QPushButton:pressed
 	{
-		background-image:url(:/titleBar/resources/titleBar/min.svg);
+		background-image:url(:/titleBar/resources/titleBar/min.png);
 		border:none;
 	}
 	)";
 
-std::string max_qss = R"(
+std::string max_normal_qss = R"(
 	QPushButton#m_pMaxBtn{
-		background-image:url(:/titleBar/resources/titleBar/normal.svg);
+		background-image:url(:/titleBar/resources/titleBar/max_normal.png);
+		background-position:center; 
+		background-repeat: no-repeat;
 		border:none}
 
 	QPushButton#m_pMaxBtn:hover{
 		background-color:rgb(99, 99, 99);
-		background-image:url(:/titleBar/resources/titleBar/normal_hover.svg);
+		background-image:url(:/titleBar/resources/titleBar/max_normal.png);
 		border:none;
 	}
 
 	QPushButton#m_pMaxBtn:pressed
 	{
-		background-image:url(:/titleBar/resources/titleBar/min.svg);
+		background-image:url(:/titleBar/resources/titleBar/max_normal.png);
 		border:none;
 	}
 	)";
 
-std::string close_qss = R"(
-	QPushButton{
-		background-image:url(:/titleBar/resources/titleBar/close.svg);
-		border:none
-	}
+std::string maxed_qss = R"(
+	QPushButton#m_pMaxBtn{
+		background-image:url(:/titleBar/resources/titleBar/max.png);
+		background-position:center; 
+		background-repeat: no-repeat;
+		border:none}
 
-	QPushButton:hover{
+	QPushButton#m_pMaxBtn:hover{
 		background-color:rgb(99, 99, 99);
-		background-image:url(:/titleBar/resources/titleBar/close_hover.svg);
+		background-image:url(:/titleBar/resources/titleBar/max.png);
 		border:none;
 	}
 
-	QPushButton:pressed
+	QPushButton#m_pMaxBtn:pressed
 	{
-		background-image:url(:/titleBar/resources/titleBar/close.svg);
+		background-image:url(:/titleBar/resources/titleBar/max.png);
+		border:none;
+	}
+	)";
+
+
+std::string close_qss = R"(
+	QPushButton#m_pCloseBtn{
+		background-image:url(:/titleBar/resources/titleBar/close.png);
+		background-position:center; 
+		background-repeat: no-repeat;
+		border:none
+	}
+
+	QPushButton#m_pCloseBtn:hover{
+		background-color:rgb(99, 99, 99);
+		background-image:url(:/titleBar/resources/titleBar/close.png);
+		border:none;
+	}
+
+	QPushButton#m_pCloseBtn:pressed
+	{
+		background-image:url(:/titleBar/resources/titleBar/close.png);
 		border:none;
 	}
 	)";
