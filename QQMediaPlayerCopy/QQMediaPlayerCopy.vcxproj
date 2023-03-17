@@ -140,7 +140,7 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -156,7 +156,6 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
     <ClCompile Include="CVolumeSliderDialog.cpp" />
     <ClCompile Include="VideoWidget.cpp" />
     <QtRcc Include="QQMediaPlayerCopy.qrc" />
-    <QtMoc Include="QQMediaPlayerCopy.h" />
     <ClCompile Include="CommonUtils.cpp" />
     <ClCompile Include="CPlayCtrlBar.cpp" />
     <ClCompile Include="CTitleBar.cpp" />
@@ -168,6 +167,7 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
     <ClInclude Include="CommonUtils.h" />
     <QtMoc Include="CVolumeButton.h" />
     <QtMoc Include="CVolumeSliderDialog.h" />
+    <QtMoc Include="MainWindow.h" />
     <ClInclude Include="qss.h" />
     <QtMoc Include="CTimeSlider.h" />
     <QtMoc Include="CVideoWidgetTopWidget.h" />

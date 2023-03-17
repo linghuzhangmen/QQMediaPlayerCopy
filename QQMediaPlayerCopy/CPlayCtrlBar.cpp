@@ -14,7 +14,7 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 {
 	setAttribute(Qt::WA_StyledBackground);  // 禁止父窗口样式影响子控件样式
 
-	setFixedHeight(45);
+	setFixedHeight(55);
 	setStyleSheet("QWidget{background-color:rgb(17,17,17);}");
 
 	QString label_qss = "QLabel{font-family:Microsoft YaHei; font-size:18px; color:rgb(255,255,255);}";

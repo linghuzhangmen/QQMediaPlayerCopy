@@ -45,12 +45,12 @@ void CTitleBar::initUI()
 	this->setStyleSheet("background-color:rgb(54,54,54)");
 
 	m_pLogoBtn = new QPushButton(this);
-	m_pLogoBtn->setMinimumWidth(138);
+	m_pLogoBtn->setMinimumWidth(120);
 	m_pLogoBtn->setText(tr("Media Player"));
-	m_pLogoBtn->setStyleSheet(QString::fromStdString(logo_button_qss));
+	m_pLogoBtn->setStyleSheet(logo_button_qss);
 
 	QMenu* pMenu = new QMenu(this);
-	pMenu->setStyleSheet(QString::fromStdString(menu_qss));
+	pMenu->setStyleSheet(menu_qss);
 
 	QAction* pAc1 = new QAction(tr("open file"), this);
 	QAction* pAc2 = new QAction(tr("open floder"), this);
@@ -83,34 +83,33 @@ void CTitleBar::initUI()
 	m_pMinimodeBtn->setObjectName("m_pMinimodeBtn");
 	m_pMinimodeBtn->setText("");
 	m_pMinimodeBtn->setFixedSize(w, h);
-	m_pMinimodeBtn->setStyleSheet(QString::fromStdString(minimode_qss));
+	m_pMinimodeBtn->setStyleSheet(minimode_qss);
 
 	m_pSettopBtn = new QPushButton(this);
 	m_pSettopBtn->setObjectName("m_pSettopBtn");
 	m_pSettopBtn->setText("");
 	m_pSettopBtn->setToolTip(tr("set to top window"));
 	m_pSettopBtn->setFixedSize(w, h);
-	m_pSettopBtn->setStyleSheet(QString::fromStdString(settop_qss));
+	m_pSettopBtn->setStyleSheet(settop_qss);
 
 	m_pMinBtn = new QPushButton(this);
 	m_pMinBtn->setFixedSize(w, h);
-	m_pMinBtn->setStyleSheet(QString::fromStdString(min_qss));
+	m_pMinBtn->setStyleSheet(min_qss);
 
 	m_pMaxBtn = new QPushButton(this);
 	m_pMaxBtn->setObjectName("m_pMaxBtn");
 	m_pMaxBtn->setText("");
 	m_pMaxBtn->setFixedSize(w, h);
-	m_pMaxBtn->setStyleSheet(QString::fromStdString(max_normal_qss));
+	m_pMaxBtn->setStyleSheet(max_normal_qss);
 
 	m_pCloseBtn = new QPushButton(this);
 	m_pCloseBtn->setObjectName("m_pCloseBtn");
 	m_pCloseBtn->setText("");
 	m_pCloseBtn->setFixedSize(w, h);
-	m_pCloseBtn->setStyleSheet(QString::fromStdString(close_qss));
+	m_pCloseBtn->setStyleSheet(close_qss);
 
 	QHBoxLayout* pHlay = new QHBoxLayout(this);
 	pHlay->addWidget(m_pLogoBtn);
-	//pHlay->addWidget(m_pFileNameLabel, Qt::AlignCenter); // 这种不是那么得居中，直接用move方法设置居中
 	pHlay->addStretch(1);
 	pHlay->addWidget(m_pMinimodeBtn);
 	QSpacerItem* pItem = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -123,7 +122,7 @@ void CTitleBar::initUI()
 	pHlay->addWidget(m_pMinBtn);
 	QSpacerItem* pItem2 = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
 	pHlay->addSpacerItem(pItem2);
-	
+	 
 	pHlay->addWidget(m_pMaxBtn);
 	QSpacerItem* pItem3 = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
 	pHlay->addSpacerItem(pItem3);  
@@ -180,12 +179,12 @@ void CTitleBar::onClicked()
 		if (pWindow->isMaximized())
 		{
 			pWindow->showNormal();
-			m_pMaxBtn->setStyleSheet(QString::fromStdString(max_normal_qss));
+			m_pMaxBtn->setStyleSheet(max_normal_qss);
 		}
 		else
 		{
 			pWindow->showMaximized();
-			m_pMaxBtn->setStyleSheet(QString::fromStdString(maxed_qss));
+			m_pMaxBtn->setStyleSheet(maxed_qss);
 		}
 	}
 	else if (pButton == m_pMinimodeBtn)
@@ -199,14 +198,14 @@ void CTitleBar::onClicked()
 		{
 			// The window is topmost.
 			::SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-			m_pSettopBtn->setStyleSheet(QString::fromStdString(settop_qss));
+			m_pSettopBtn->setStyleSheet(settop_qss);
 			m_pSettopBtn->setToolTip(tr("set to top window"));
 		}
 		else
 		{
 			// The window is not topmost.
 			::SetWindowPos(HWND(pWindow->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-			m_pSettopBtn->setStyleSheet(QString::fromStdString(settoped_qss));
+			m_pSettopBtn->setStyleSheet(settoped_qss);
 			m_pSettopBtn->setToolTip(tr("cancal top window"));
 		}
 	}
@@ -218,7 +217,7 @@ void CTitleBar::onClicked()
 
 void CTitleBar::openFile()
 {
-	QString cfgPath = "HKEY_CURRENT_USER\\Software\\QQMediaPlayerCopy";
+	QString cfgPath = "HKEY_CURRENT_USER\\Software\\CMainWindow";
 	QSettings settings(cfgPath, QSettings::NativeFormat);
 	QString lastPath = settings.value("openfile_path").toString();  // 从注册表获取路径
 
@@ -248,7 +247,7 @@ void CTitleBar::openFile()
 
 void CTitleBar::openFloder()
 {
-	QString cfgPath = "HKEY_CURRENT_USER\\Software\\QQMediaPlayerCopy";
+	QString cfgPath = "HKEY_CURRENT_USER\\Software\\CMainWindow";
 	QSettings settings(cfgPath, QSettings::NativeFormat);
 	QString lastPath = settings.value("openfile_path").toString();  // 从注册表获取路径
 

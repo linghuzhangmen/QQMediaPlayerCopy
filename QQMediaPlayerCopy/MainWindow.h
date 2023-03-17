@@ -5,7 +5,6 @@
 
 作者：令狐掌门
 博客链接：https://blog.csdn.net/yao_hou/category_9275800.html
-QQ群：894097803
 
 */
 
@@ -44,12 +43,15 @@ enum MousePosition
     kMousePositionRightButtom = 33,
 };
 
-class QQMediaPlayerCopy : public QWidget
+class CMainWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    QQMediaPlayerCopy(QWidget *parent = Q_NULLPTR);
+    CMainWindow(QWidget *parent = Q_NULLPTR);
+
+private:
+    void InitUI();
 
 protected:
 	void resizeEvent(QResizeEvent* event) override;

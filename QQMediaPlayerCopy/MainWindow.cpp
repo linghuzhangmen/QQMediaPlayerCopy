@@ -1,4 +1,4 @@
-#include "QQMediaPlayerCopy.h"
+#include "MainWindow.h"
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <string>
@@ -45,7 +45,7 @@ string qstr2str(const QString& qstr)
 	return string(cdata);
 }
 
-QQMediaPlayerCopy::QQMediaPlayerCopy(QWidget* parent)
+CMainWindow::CMainWindow(QWidget* parent)
 	: QWidget(parent)
 {
 	this->setWindowTitle("vlcmain");
@@ -63,17 +63,24 @@ QQMediaPlayerCopy::QQMediaPlayerCopy(QWidget* parent)
 	case -1:
 		QMessageBox::information(this, tr("Warn"),
 			tr("libvlc_new failed"));
+
 		exit(EXIT_FAILURE);
 
 	case -2:
 		QMessageBox::information(this, tr("Warn"),
 			tr("libvlc_media_player_new failed"));
+
 		exit(EXIT_FAILURE);
 	}
 
-	connect(m_pVlc.get(), &CVlcKits::sig_UpdateTimeText, this, &QQMediaPlayerCopy::OnUpdateTimeText);
-	connect(m_pVlc.get(), &CVlcKits::sig_TimeSliderPos, this, &QQMediaPlayerCopy::OnUpdateTimeSlider);
+	connect(m_pVlc.get(), &CVlcKits::sig_UpdateTimeText, this, &CMainWindow::OnUpdateTimeText);
+	connect(m_pVlc.get(), &CVlcKits::sig_TimeSliderPos, this, &CMainWindow::OnUpdateTimeSlider);
 
+	InitUI();
+}
+
+void CMainWindow::InitUI()
+{
 	QVBoxLayout* pVLay = new QVBoxLayout(this);
 	pVLay->setSpacing(0);
 
@@ -95,22 +102,22 @@ QQMediaPlayerCopy::QQMediaPlayerCopy(QWidget* parent)
 	m_pPlaylistWidget->hide();  //播放列表默认隐藏
 	this->resize(800, 600);
 
-	connect(m_pTitleBar, &CTitleBar::sig_close, this, &QQMediaPlayerCopy::On_Close);
-	connect(m_pTitleBar, &CTitleBar::sig_ShowFullFcreen, this, &QQMediaPlayerCopy::On_ShowFullScreen);
-	connect(m_pTitleBar, &CTitleBar::sig_showMiniMode, this, &QQMediaPlayerCopy::On_ShowMiniMode);
-	connect(m_pTitleBar, &CTitleBar::sig_openfile, this, &QQMediaPlayerCopy::on_openFile);
-	connect(m_pTitleBar, &CTitleBar::sig_openUrl, this, &QQMediaPlayerCopy::on_openUrl);
-	connect(m_pVideoWidget, &VideoWidget::sig_OpenFile, this, &QQMediaPlayerCopy::on_openFile);
-	connect(m_pVideoWidget, &VideoWidget::sig_OpenUrl, this, &QQMediaPlayerCopy::on_openUrl);
-	connect(m_pVideoWidget, &VideoWidget::sig_OpenPlaylist, this, &QQMediaPlayerCopy::On_openRightPlaylist);
-	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_fullScreen, this, &QQMediaPlayerCopy::On_ShowFullScreen);
-	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_playRate, this, &QQMediaPlayerCopy::OnSetPlayRate);
+	connect(m_pTitleBar, &CTitleBar::sig_close, this, &CMainWindow::On_Close);
+	connect(m_pTitleBar, &CTitleBar::sig_ShowFullFcreen, this, &CMainWindow::On_ShowFullScreen);
+	connect(m_pTitleBar, &CTitleBar::sig_showMiniMode, this, &CMainWindow::On_ShowMiniMode);
+	connect(m_pTitleBar, &CTitleBar::sig_openfile, this, &CMainWindow::on_openFile);
+	connect(m_pTitleBar, &CTitleBar::sig_openUrl, this, &CMainWindow::on_openUrl);
+	connect(m_pVideoWidget, &VideoWidget::sig_OpenFile, this, &CMainWindow::on_openFile);
+	connect(m_pVideoWidget, &VideoWidget::sig_OpenUrl, this, &CMainWindow::on_openUrl);
+	connect(m_pVideoWidget, &VideoWidget::sig_OpenPlaylist, this, &CMainWindow::On_openRightPlaylist);
+	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_fullScreen, this, &CMainWindow::On_ShowFullScreen);
+	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_playRate, this, &CMainWindow::OnSetPlayRate);
 	connect(m_pPlaylistWidget, &CPlayListWidget::sig_doubleClickFileName,
 		this,
-		&QQMediaPlayerCopy::OnPlay);
+		&CMainWindow::OnPlay);
 }
 
-void QQMediaPlayerCopy::resizeEvent(QResizeEvent* event)
+void CMainWindow::resizeEvent(QResizeEvent* event)
 {
 	if (!this->isMaximized() && !this->isFullScreen())
 	{
@@ -127,7 +134,7 @@ void QQMediaPlayerCopy::resizeEvent(QResizeEvent* event)
 	}
 }
 
-void QQMediaPlayerCopy::On_Close()
+void CMainWindow::On_Close()
 {
 	if (m_isPlay)
 	{
@@ -147,7 +154,7 @@ void QQMediaPlayerCopy::On_Close()
 	}
 }
 
-void QQMediaPlayerCopy::on_openFile(const QStringList& fileList)
+void CMainWindow::on_openFile(const QStringList& fileList)
 {
 	if (fileList.isEmpty())
 		return;
@@ -181,12 +188,12 @@ void QQMediaPlayerCopy::on_openFile(const QStringList& fileList)
 	
 	m_pTimer = new QTimer(this);
 	m_pTimer->start(3000);
-	connect(m_pTimer, &QTimer::timeout, this, &QQMediaPlayerCopy::On_timer);
+	connect(m_pTimer, &QTimer::timeout, this, &CMainWindow::On_timer);
 }
 
 // 打开网络媒体流
 // rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4
-void QQMediaPlayerCopy::on_openUrl(const QString& url)
+void CMainWindow::on_openUrl(const QString& url)
 {
 	m_pVlc->play(url, (void*)(m_pVideoWidget->winId()));
 
@@ -196,10 +203,10 @@ void QQMediaPlayerCopy::on_openUrl(const QString& url)
 
 	m_pTimer = new QTimer(this);
 	m_pTimer->start(3000);
-	connect(m_pTimer, &QTimer::timeout, this, &QQMediaPlayerCopy::On_timer);
+	connect(m_pTimer, &QTimer::timeout, this, &CMainWindow::On_timer);
 }
 
-void QQMediaPlayerCopy::On_openRightPlaylist()
+void CMainWindow::On_openRightPlaylist()
 {
 	if (m_pPlaylistWidget->isHidden())
 	{
@@ -211,7 +218,7 @@ void QQMediaPlayerCopy::On_openRightPlaylist()
 	}
 }
 
-void QQMediaPlayerCopy::On_timer()
+void CMainWindow::On_timer()
 {
 	if (m_isPlay)
 	{
@@ -244,23 +251,23 @@ void QQMediaPlayerCopy::On_timer()
 	}
 }
 
-void QQMediaPlayerCopy::OnUpdateTimeText(const QString& str)
+void CMainWindow::OnUpdateTimeText(const QString& str)
 {
 	m_pPlayCtrlBar->setCurPlayTime(str);
 }
 
-void QQMediaPlayerCopy::OnUpdateTimeSlider(const int& value)
+void CMainWindow::OnUpdateTimeSlider(const int& value)
 {
 	m_pVideoWidget->setTimeSliderPos(value);
 }
 
 // 倍速播放
-void QQMediaPlayerCopy::OnSetPlayRate(double rate)
+void CMainWindow::OnSetPlayRate(double rate)
 {
 	m_pVlc->setPlayRate(rate);
 }
 
-void QQMediaPlayerCopy::OnPlay(const QString& fileName)
+void CMainWindow::OnPlay(const QString& fileName)
 {
 	QStringList fileList;
 	fileList << fileName;
@@ -272,7 +279,7 @@ void QQMediaPlayerCopy::OnPlay(const QString& fileName)
 	}
 }
 
-void QQMediaPlayerCopy::On_ShowFullScreen()
+void CMainWindow::On_ShowFullScreen()
 {
 	this->showFullScreen();
 	m_pTitleBar->hide();
@@ -280,7 +287,7 @@ void QQMediaPlayerCopy::On_ShowFullScreen()
 	m_pPlaylistWidget->hide();
 }
 
-void QQMediaPlayerCopy::On_ShowMiniMode()
+void CMainWindow::On_ShowMiniMode()
 {
 	if (m_isPlay)
 	{
@@ -292,7 +299,7 @@ void QQMediaPlayerCopy::On_ShowMiniMode()
 	}
 } 
 
-void QQMediaPlayerCopy::mouseDoubleClickEvent(QMouseEvent* event)
+void CMainWindow::mouseDoubleClickEvent(QMouseEvent* event)
 {
 	QPoint p1 = m_pVideoWidget->mapToGlobal(QPoint(0, 0));
 	QRect rect = m_pVideoWidget->rect();
@@ -320,7 +327,7 @@ void QQMediaPlayerCopy::mouseDoubleClickEvent(QMouseEvent* event)
 	}
 }
 
-void QQMediaPlayerCopy::keyPressEvent(QKeyEvent* event)
+void CMainWindow::keyPressEvent(QKeyEvent* event)
 {
 	if (event->key() == Qt::Key_Escape)
 	{
@@ -334,7 +341,7 @@ void QQMediaPlayerCopy::keyPressEvent(QKeyEvent* event)
 	}
 }
 
-void QQMediaPlayerCopy::mouseMoveEvent(QMouseEvent* event)
+void CMainWindow::mouseMoveEvent(QMouseEvent* event)
 {
 	mouse_moved_ = true;
 	mouse_last_moved_pos_ = QCursor::pos();
@@ -420,12 +427,12 @@ void QQMediaPlayerCopy::mouseMoveEvent(QMouseEvent* event)
 	/******************************************************************/
 }
 
-void QQMediaPlayerCopy::mouseReleaseEvent(QMouseEvent* event)
+void CMainWindow::mouseReleaseEvent(QMouseEvent* event)
 {
 	left_button_pressed_ = false;
 }
 
-void QQMediaPlayerCopy::mousePressEvent(QMouseEvent* event)
+void CMainWindow::mousePressEvent(QMouseEvent* event)
 {
 	if (event->buttons() == Qt::LeftButton) {
 		left_button_pressed_ = true;
@@ -435,7 +442,7 @@ void QQMediaPlayerCopy::mousePressEvent(QMouseEvent* event)
 	}
 }
 
-void QQMediaPlayerCopy::SetMouseCursor(int x, int y)
+void CMainWindow::SetMouseCursor(int x, int y)
 {
 	Qt::CursorShape cursor;
 	int region = GetMouseRegion(x, y);
@@ -461,7 +468,7 @@ void QQMediaPlayerCopy::SetMouseCursor(int x, int y)
 	setCursor(cursor);
 }
 
-int QQMediaPlayerCopy::GetMouseRegion(int x, int y)
+int CMainWindow::GetMouseRegion(int x, int y)
 {
 	int region_x = 0, region_y = 0;
 	if (x < kMouseRegionLeft)

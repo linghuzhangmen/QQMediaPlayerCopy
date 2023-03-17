@@ -8,11 +8,14 @@
 
 #pragma once
 
-#include <string>
+#include <QString>
 
-std::string logo_button_qss = R"(
+
+
+QString logo_button_qss = R"(
 	QPushButton{
 		background-color:rgb(54,54,54);
+		text-align:left;
 		font-family:Microsoft YaHei;
 		font-size:14px; 
 		color:rgb(255,255,255);
@@ -33,7 +36,7 @@ std::string logo_button_qss = R"(
 		border:none
 	})";
 
-std::string menu_qss = R"(
+QString menu_qss = R"(
 		QMenu
 		{
 			background-color:rgb(73, 73, 73);
@@ -54,7 +57,7 @@ std::string menu_qss = R"(
 		}
 	)";
 
-std::string minimode_qss = R"(
+QString minimode_qss = R"(
 	QPushButton#m_pMinimodeBtn{
 		background-image:url(:/titleBar/resources/titleBar/minimode.png);
 		background-position:center; 
@@ -69,7 +72,7 @@ std::string minimode_qss = R"(
 	}
 )";
 
-std::string settop_qss = R"(
+QString settop_qss = R"(
 	QPushButton#m_pSettopBtn{
 		background-image:url(:/titleBar/resources/titleBar/settop.png);
 		background-position:center; 
@@ -84,7 +87,7 @@ std::string settop_qss = R"(
 	}
 )";
 
-std::string settoped_qss = R"(
+QString settoped_qss = R"(
 	QPushButton#m_pSettopBtn{
 		background-image:url(:/titleBar/resources/titleBar/settop_cancel.png);
 		background-position:center; 
@@ -99,7 +102,7 @@ std::string settoped_qss = R"(
 	}
 )";
 
-std::string min_qss = R"(
+QString min_qss = R"(
 	QPushButton{
 		background-image:url(:/titleBar/resources/titleBar/min.png);
 		background-position:center; 
@@ -120,7 +123,7 @@ std::string min_qss = R"(
 	}
 	)";
 
-std::string max_normal_qss = R"(
+QString max_normal_qss = R"(
 	QPushButton#m_pMaxBtn{
 		background-image:url(:/titleBar/resources/titleBar/max_normal.png);
 		background-position:center; 
@@ -140,7 +143,7 @@ std::string max_normal_qss = R"(
 	}
 	)";
 
-std::string maxed_qss = R"(
+QString maxed_qss = R"(
 	QPushButton#m_pMaxBtn{
 		background-image:url(:/titleBar/resources/titleBar/max.png);
 		background-position:center; 
@@ -161,7 +164,7 @@ std::string maxed_qss = R"(
 	)";
 
 
-std::string close_qss = R"(
+QString close_qss = R"(
 	QPushButton#m_pCloseBtn{
 		background-image:url(:/titleBar/resources/titleBar/close.png);
 		background-position:center; 

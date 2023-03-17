@@ -163,7 +163,7 @@ bool COpenFileButton::eventFilter(QObject* watched, QEvent* event)
 
 void COpenFileButton::on_openfile()
 {
-	QString cfgPath = "HKEY_CURRENT_USER\\Software\\QQMediaPlayerCopy";
+	QString cfgPath = "HKEY_CURRENT_USER\\Software\\CMainWindow";
 	QSettings settings(cfgPath, QSettings::NativeFormat);
 	QString lastPath = settings.value("openfile_path").toString();  // 从注册表获取路径
 	
@@ -193,7 +193,7 @@ void COpenFileButton::on_openfile()
 
 void COpenFileButton::on_openFloder()
 {
-	QString cfgPath = "HKEY_CURRENT_USER\\Software\\QQMediaPlayerCopy";
+	QString cfgPath = "HKEY_CURRENT_USER\\Software\\CMainWindow";
 	QSettings settings(cfgPath, QSettings::NativeFormat);
 	QString lastPath = settings.value("openfile_path").toString();  // 从注册表获取路径
 

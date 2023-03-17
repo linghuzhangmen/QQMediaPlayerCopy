@@ -2,6 +2,37 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>CMainWindow</name>
+    <message>
+        <location filename="MainWindow.cpp" line="64"/>
+        <location filename="MainWindow.cpp" line="70"/>
+        <location filename="MainWindow.cpp" line="173"/>
+        <location filename="MainWindow.cpp" line="277"/>
+        <source>Warn</source>
+        <translation>提示</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="65"/>
+        <source>libvlc_new failed</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="173"/>
+        <location filename="MainWindow.cpp" line="277"/>
+        <source>can&apos;t play this video file</source>
+        <translation>不支持该视频文件的播放</translation>
+    </message>
+    <message>
+        <source>��ʾ</source>
+        <translation type="vanished">提示</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="71"/>
+        <source>libvlc_media_player_new failed</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>CNetStreamDlg</name>
     <message>
         <location filename="CNetStreamDlg.ui" line="14"/>
@@ -161,79 +192,48 @@
     </message>
     <message>
         <location filename="CTitleBar.cpp" line="91"/>
-        <location filename="CTitleBar.cpp" line="203"/>
+        <location filename="CTitleBar.cpp" line="202"/>
         <source>set to top window</source>
         <translation>置顶</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="210"/>
+        <location filename="CTitleBar.cpp" line="209"/>
         <source>cancal top window</source>
         <translation>取消置顶</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="233"/>
+        <location filename="CTitleBar.cpp" line="232"/>
         <source>select video file</source>
         <translation>选择视频文件</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="235"/>
+        <location filename="CTitleBar.cpp" line="234"/>
         <source>video file (*.flv *.rmvb *.avi *.mp4);; all files(*.*);; </source>
         <translation>视频文件((*.flv *.rmvb *.avi *.mp4);; all files(*.*);;)</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="261"/>
+        <location filename="CTitleBar.cpp" line="260"/>
         <source>choose video directory</source>
         <translation>选择视频目录</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="279"/>
+        <location filename="CTitleBar.cpp" line="278"/>
         <source>Warn</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="279"/>
+        <location filename="CTitleBar.cpp" line="278"/>
         <source>this floder no video files</source>
         <translation>该文件夹没有视频文件</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="307"/>
+        <location filename="CTitleBar.cpp" line="306"/>
         <source>tips</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="CTitleBar.cpp" line="307"/>
+        <location filename="CTitleBar.cpp" line="306"/>
         <source>Qt libvlc mediaplayer</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>QQMediaPlayerCopy</name>
-    <message>
-        <location filename="MainWindow.cpp" line="64"/>
-        <location filename="MainWindow.cpp" line="69"/>
-        <location filename="MainWindow.cpp" line="166"/>
-        <location filename="MainWindow.cpp" line="270"/>
-        <source>Warn</source>
-        <translation>提示</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="65"/>
-        <source>libvlc_new failed</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="166"/>
-        <location filename="MainWindow.cpp" line="270"/>
-        <source>can&apos;t play this video file</source>
-        <translation>不支持该视频文件的播放</translation>
-    </message>
-    <message>
-        <source>��ʾ</source>
-        <translation type="vanished">提示</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="70"/>
-        <source>libvlc_media_player_new failed</source>
         <translation></translation>
     </message>
 </context>

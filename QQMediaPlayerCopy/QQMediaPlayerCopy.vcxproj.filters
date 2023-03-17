@@ -26,9 +26,6 @@
     <QtRcc Include="QQMediaPlayerCopy.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtMoc Include="QQMediaPlayerCopy.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <ClCompile Include="MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -120,6 +117,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="CNetStreamDlg.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
