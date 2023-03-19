@@ -21,7 +21,7 @@ CTitleBar::CTitleBar(QWidget *parent)
 {
 	this->setAttribute(Qt::WA_DeleteOnClose);
 	setMouseTracking(true);
-	initUI();
+	InitData();
 }
 
 CTitleBar::~CTitleBar()
@@ -34,7 +34,7 @@ void CTitleBar::setFileNameLabelText(QString name)
 	m_pFileNameLabel->setText(name);
 }
 
-void CTitleBar::initUI()
+void CTitleBar::InitData()
 {
 	//禁止父窗口影响子窗口样式
 	setAttribute(Qt::WA_StyledBackground);
@@ -45,7 +45,7 @@ void CTitleBar::initUI()
 	this->setStyleSheet("background-color:rgb(54,54,54)");
 
 	m_pLogoBtn = new QPushButton(this);
-	m_pLogoBtn->setMinimumWidth(120);
+	m_pLogoBtn->setFixedWidth(120);
 	m_pLogoBtn->setText(tr("Media Player"));
 	m_pLogoBtn->setStyleSheet(logo_button_qss);
 
@@ -73,7 +73,6 @@ void CTitleBar::initUI()
 	connect(pAc5, &QAction::triggered, this, &CTitleBar::exit);
 
 	m_pFileNameLabel = new QLabel(this);
-	m_pFileNameLabel->setMinimumWidth(60);
 	m_pFileNameLabel->setAlignment(Qt::AlignCenter);
 	m_pFileNameLabel->hide();  // 视频文件标题，默认隐藏
 	m_pFileNameLabel->setStyleSheet("QLabel{font-family:Microsoft YaHei; \
@@ -108,34 +107,29 @@ void CTitleBar::initUI()
 	m_pCloseBtn->setFixedSize(w, h);
 	m_pCloseBtn->setStyleSheet(close_qss);
 
-	QHBoxLayout* pHlay = new QHBoxLayout(this);
-	pHlay->addWidget(m_pLogoBtn);
-	pHlay->addStretch(1);
-	pHlay->addWidget(m_pMinimodeBtn);
-	QSpacerItem* pItem = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
-	pHlay->addSpacerItem(pItem);
-
-	pHlay->addWidget(m_pSettopBtn);
-	QSpacerItem* pItem1 = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
-	pHlay->addSpacerItem(pItem1);
-
-	pHlay->addWidget(m_pMinBtn);
-	QSpacerItem* pItem2 = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
-	pHlay->addSpacerItem(pItem2);
-	 
-	pHlay->addWidget(m_pMaxBtn);
-	QSpacerItem* pItem3 = new QSpacerItem(15, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
-	pHlay->addSpacerItem(pItem3);  
-
-	pHlay->addWidget(m_pCloseBtn);
-
-	pHlay->setContentsMargins(margin, margin, margin, margin);
-
 	connect(m_pMinBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
 	connect(m_pMaxBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
 	connect(m_pCloseBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
 	connect(m_pMinimodeBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
 	connect(m_pSettopBtn, &QPushButton::clicked, this, &CTitleBar::onClicked);
+}
+
+void CTitleBar::RestoreUI()
+{
+	m_pLogoBtn->move(5, 5);
+
+	int w = this->width();
+	int h = this->height();
+
+	m_pCloseBtn->move(w - 21, 5);
+	m_pMaxBtn->move(w - 21 - 18 - 16, 5);
+	m_pMinBtn->move(w - 21 - 34 * 2, 5);
+	m_pSettopBtn->move(w - 21 - 34 * 3, 5);
+	m_pMinimodeBtn->move(w - 21 - 34 * 4, 5);
+
+	// 此处设置视频标题的宽度
+	m_pFileNameLabel->setFixedWidth(w - 120 - 5 - 21 - 34 * 4 - 5);
+	m_pFileNameLabel->move(120 + 5 + 5, 5);
 }
 
 void CTitleBar::mousePressEvent(QMouseEvent* event)
@@ -159,9 +153,7 @@ void CTitleBar::mouseDoubleClickEvent(QMouseEvent* event)
 
 void CTitleBar::resizeEvent(QResizeEvent* event)
 {
-	int x = (this->width() - m_pFileNameLabel->width()) / 2;
-	int y = (this->height() - m_pFileNameLabel->height()) / 2;
-	m_pFileNameLabel->move(x, y);
+	RestoreUI();
 }
 
 void CTitleBar::onClicked()

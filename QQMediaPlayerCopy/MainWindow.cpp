@@ -128,9 +128,6 @@ void CMainWindow::resizeEvent(QResizeEvent* event)
 
 		int thisW = this->width();
 		int thisH = this->height();
-
-		//这里和某些功能有冲突，暂时不移动到屏幕中央
-		//this->move((sw - thisW) / 2, (sh - thisH) / 2);
 	}
 }
 
@@ -138,8 +135,8 @@ void CMainWindow::On_Close()
 {
 	if (m_isPlay)
 	{
-		QMessageBox::StandardButton rb = QMessageBox::warning(this, "warn",
-			"Do you want to end player?",
+		QMessageBox::StandardButton rb = QMessageBox::warning(this, tr("warn"),
+			tr("Do you want to end player?"),
 			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 
 		if (rb == QMessageBox::Yes)
@@ -258,7 +255,7 @@ void CMainWindow::OnUpdateTimeText(const QString& str)
 
 void CMainWindow::OnUpdateTimeSlider(const int& value)
 {
-	m_pVideoWidget->setTimeSliderPos(value);
+	//m_pVideoWidget->setTimeSliderPos(value);
 }
 
 // 倍速播放

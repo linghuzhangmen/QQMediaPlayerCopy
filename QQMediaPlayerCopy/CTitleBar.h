@@ -1,3 +1,9 @@
+/*
+
+标题栏
+
+*/
+
 #pragma once
 
 #include <QWidget>
@@ -15,7 +21,8 @@ public:
 	void setFileNameLabelText(QString name);
 
 private:
-	void initUI();
+	void InitData();
+	void RestoreUI();
 
 private:
 	void mousePressEvent(QMouseEvent* event) override;
@@ -25,7 +32,7 @@ private:
 signals:
 	void sig_close();
 	void sig_ShowFullFcreen();
-	void sig_showMiniMode(); // 迷你小窗显示
+	void sig_showMiniMode();  // 迷你小窗显示
 	void sig_openfile(const QStringList& fileList);
 	void sig_openUrl(const QString& url);
 

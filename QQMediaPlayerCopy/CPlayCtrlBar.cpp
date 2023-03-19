@@ -5,17 +5,109 @@
 */
 
 #include "CPlayCtrlBar.h"
-#include <QHBoxLayout>
 #include <QMenu>
 #include <QEvent>
+
+#define TIME_SLIDER_HEIGHT   10
 
 CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 	: QWidget(parent)
 {
 	setAttribute(Qt::WA_StyledBackground);  // 禁止父窗口样式影响子控件样式
 
-	setFixedHeight(55);
+	setFixedHeight(67);
 	setStyleSheet("QWidget{background-color:rgb(17,17,17);}");
+
+	InitData();
+}
+
+CPlayCtrlBar::~CPlayCtrlBar()
+{
+}
+
+void CPlayCtrlBar::showTimeLabel(bool isShow)
+{
+	if (isShow)
+	{
+		m_pCurPlayTimeLabel->show();
+	}
+	else
+	{
+		m_pCurPlayTimeLabel->hide();
+	}
+}
+
+//设置当前播放时间
+void CPlayCtrlBar::setCurPlayTime(const QString& curPlaytime)
+{
+	m_pCurPlayTimeLabel->setText(curPlaytime);
+}
+
+void CPlayCtrlBar::resizeEvent(QResizeEvent* event)
+{
+	RestoreUI();
+}
+
+bool CPlayCtrlBar::eventFilter(QObject* watched, QEvent* event)
+{
+	if (m_pSpeedButton)
+	{
+		if (event->type() == QEvent::Show && watched == m_pSpeedButton->menu())
+		{
+			int menuWidth = m_pSpeedButton->menu()->width();
+			int menuHeight = m_pSpeedButton->menu()->height();
+			int buttonWidth = m_pSpeedButton->width();
+			int buttonHeight = m_pSpeedButton->height();
+			int menuXPos = m_pSpeedButton->menu()->pos().x();  
+			int menuYPos = m_pSpeedButton->mapToGlobal(QPoint(0, 0)).y() - menuHeight - 3;
+			m_pSpeedButton->menu()->move(menuXPos, menuYPos);
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void CPlayCtrlBar::setTimeSliderRange(qint64 value)
+{
+	m_pTimeSlider->setRange(0, value);
+}
+
+void CPlayCtrlBar::setSliderValue(qint64 value)
+{
+	m_pTimeSlider->setValue(value);
+}
+
+void CPlayCtrlBar::showSlider(bool flag)
+{
+	m_pTimeSlider->show();
+}
+
+void CPlayCtrlBar::InitData()
+{
+	m_pTimeSlider = new CTimeSlider(this);
+	m_pTimeSlider->setFixedHeight(TIME_SLIDER_HEIGHT);
+	m_pTimeSlider->hide();
+
+	QString slider_qss = "QSlider{background:transparent; \
+		border-style: outset; \
+		border-style: outset;  \
+			border-radius: 10px;} \
+		QSlider::groove:horizontal{ \
+			height: 12px; \
+			background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4); \
+			margin: 2px 0} \
+		QSlider::handle:horizontal { \
+			background: QRadialGradient(cx:0, cy:0, radius: 1, fx:0.5, fy:0.5, stop:0 white, stop:1 green); \
+			width: 16px; \
+			height: 16px; \
+			margin: -5px 6px -5px 6px; \
+			border-radius:11px;  \
+		border: 3px solid #ffffff;}";
+
+	m_pTimeSlider->setStyleSheet(slider_qss);
+
+	connect(m_pTimeSlider, &QSlider::sliderMoved, this, &CPlayCtrlBar::onSliderMoved);
 
 	QString label_qss = "QLabel{font-family:Microsoft YaHei; font-size:18px; color:rgb(255,255,255);}";
 
@@ -25,10 +117,11 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 	m_pCurPlayTimeLabel->setStyleSheet(label_qss);
 
 	m_pPlayButtonGroupWidget = new CPlayButtonGroupWidget(this);
+	int tempH = m_pPlayButtonGroupWidget->height();
 
 	m_pSpeedButton = new QPushButton(this);
 	m_pSpeedButton->setText(tr("1.0speed"));
-	m_pSpeedButton->setFixedSize(40, 24);
+	m_pSpeedButton->setFixedSize(40, 32);
 
 	m_pSpeedButton->setStyleSheet("QPushButton{ \
 		background-color:rgb(64, 70, 80);color:white;border:none; \
@@ -119,22 +212,10 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 	m_pFullscreenButton = new QPushButton(this);
 	m_pFullscreenButton->setText("");
 	m_pFullscreenButton->setFixedSize(32, 32);
-	
+
 	m_pFullscreenButton->setStyleSheet("QPushButton{background-image:url(:/playCtrlBar/resources/playctrlBar/fullscreen.svg);border:none;}"
 		"QPushButton:hover{background-color:rgb(99, 99, 99);background-image:url(:/playCtrlBar/resources/playctrlBar/fullscreen_hover.svg);border:none;}"
 		"QPushButton:pressed{background-image:url(:/playCtrlBar/resources/playctrlBar/fullscreen.svg);border:none;}");
-
-	QHBoxLayout* pHLay = new QHBoxLayout(this);
-	pHLay->addSpacing(3);
-	pHLay->addWidget(m_pCurPlayTimeLabel, Qt::AlignVCenter);
-	pHLay->addStretch();
-	pHLay->addWidget(m_pPlayButtonGroupWidget);
-	pHLay->addStretch();
-	pHLay->addWidget(m_pSpeedButton);
-	pHLay->addStretch();
-	pHLay->addWidget(m_pFullscreenButton);
-
-	setLayout(pHLay);
 
 	showTimeLabel(false);
 
@@ -143,54 +224,27 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 	connect(m_pFullscreenButton, &QPushButton::clicked, this, &CPlayCtrlBar::sig_fullScreen);
 }
 
-CPlayCtrlBar::~CPlayCtrlBar()
+void CPlayCtrlBar::RestoreUI()
 {
+	int w = this->width();
+	int h = this->height();
+
+	m_pTimeSlider->move(1, 1);
+	m_pTimeSlider->setFixedWidth(w - 2);
+
+	int x0 = 10;
+	int y0 = 14 + 9;
+	m_pCurPlayTimeLabel->move(x0, y0);
+
+	int x1 = (w - m_pPlayButtonGroupWidget->width()) / 2;
+	int y1 = 14;
+	m_pPlayButtonGroupWidget->move(x1, y1);
+
+	m_pFullscreenButton->move(w - 5 - 32, y0);
+	m_pSpeedButton->move(w - 5 - 32 - 50 - 40, y0);
 }
 
-void CPlayCtrlBar::showTimeLabel(bool isShow)
+void CPlayCtrlBar::onSliderMoved(int position)
 {
-	if (isShow)
-	{
-		m_pCurPlayTimeLabel->show();
-	}
-	else
-	{
-		m_pCurPlayTimeLabel->hide();
-	}
-}
-
-//设置当前播放时间
-void CPlayCtrlBar::setCurPlayTime(const QString& curPlaytime)
-{
-	m_pCurPlayTimeLabel->setText(curPlaytime);
-}
-
-void CPlayCtrlBar::resizeEvent(QResizeEvent* event)
-{
-	if (m_pPlayButtonGroupWidget)
-	{
-		int x = this->width() / 2 - m_pPlayButtonGroupWidget->width() / 2;
-		int y = this->height() / 2 - m_pPlayButtonGroupWidget->height() / 2;
-		m_pPlayButtonGroupWidget->move(x, y);
-	}
-}
-
-bool CPlayCtrlBar::eventFilter(QObject* watched, QEvent* event)
-{
-	if (m_pSpeedButton)
-	{
-		if (event->type() == QEvent::Show && watched == m_pSpeedButton->menu())
-		{
-			int menuWidth = m_pSpeedButton->menu()->width();
-			int menuHeight = m_pSpeedButton->menu()->height();
-			int buttonWidth = m_pSpeedButton->width();
-			int buttonHeight = m_pSpeedButton->height();
-			int menuXPos = m_pSpeedButton->menu()->pos().x();  
-			int menuYPos = m_pSpeedButton->mapToGlobal(QPoint(0, 0)).y() - menuHeight - 3;
-			m_pSpeedButton->menu()->move(menuXPos, menuYPos);
-			return true;
-		}
-	}
-
-	return false;
+	emit sig_SliderMove(position);
 }

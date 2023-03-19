@@ -53,11 +53,12 @@ CPlayButtonGroupWidget::CPlayButtonGroupWidget(QWidget *parent)
 	pHLay->setSpacing(8);
 	pHLay->addWidget(m_pVolumeButton);
 
-	pHLay->setContentsMargins(10, 10, 10, 10);
+	pHLay->setContentsMargins(1, 1, 1, 1);
 
 	setLayout(pHLay);
 
-	setFixedSize(32 * 4 + 48 + 4 * 8 + 20 , 68);
+	// 228  50
+	setFixedSize(32 * 4 + 48 + 4 * 8 + 20 , 50);
 
 	connect(m_pPlayButton, &QPushButton::clicked, this, &CPlayButtonGroupWidget::sig_play);
 	connect(m_pStopButton, &QPushButton::clicked, this, &CPlayButtonGroupWidget::sig_stop);

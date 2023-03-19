@@ -43,16 +43,10 @@ VideoWidget::VideoWidget(QWidget* p) :
 	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_OpenFile, this, &VideoWidget::sig_OpenFile);
 	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_OpenUrl, this, &VideoWidget::sig_OpenUrl);
 	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_OpenPlaylist, this, &VideoWidget::sig_OpenPlaylist);
-	connect(m_pTopWidget, &CVideoWidgetTopWidget::sig_SliderMove, this, &VideoWidget::onSliderMoved);
 }
 
 VideoWidget::~VideoWidget()
 {
-}
-
-void VideoWidget::onSliderMoved(int value)
-{
-	emit sig_SliderMoved(value);
 }
 
 void VideoWidget::showTopWidget(bool show)
@@ -61,7 +55,6 @@ void VideoWidget::showTopWidget(bool show)
 	{
 		m_pTopWidget->show();
 		m_pTopWidget->showOpenFileBtn(false);
-		m_pTopWidget->showSlider(true);
 	}
 	else
 	{
@@ -79,11 +72,6 @@ void VideoWidget::showTopWidgetOpenfilesButton(bool show)
 	m_pTopWidget->showOpenFileBtn(show);
 }
 
-void VideoWidget::setTimeSliderPos(const int value)
-{
-	m_pTopWidget->setSliderValue(value);
-}
-
 void VideoWidget::resizeEvent(QResizeEvent* event)
 {
 	m_dPos = this->pos();
@@ -92,9 +80,6 @@ void VideoWidget::resizeEvent(QResizeEvent* event)
 	m_pTopWidget->resize(this->width(), this->height());
 	m_pTopWidget->move(pos);
 	m_pTopWidget->show();
-
-	//QPoint pos = this->window()->mapToGlobal(QPoint(0, 0));
-	//m_pTopWidget->move(pos + m_dPos);
 }
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))

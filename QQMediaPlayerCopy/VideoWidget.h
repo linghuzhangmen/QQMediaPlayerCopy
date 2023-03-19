@@ -9,8 +9,6 @@
 
 #include <QWidget>
 #include <QPushButton>
-
-#include <QSlider>
 #include <QAbstractNativeEventFilter>
 #include "CVideoWidgetTopWidget.h"
 
@@ -26,7 +24,6 @@ public:
 	void showTopWidget(bool show);
 	void setPlayStatus(bool play);
 	void showTopWidgetOpenfilesButton(bool show);
-	void setTimeSliderPos(const int value);
 
 protected:
 #if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
@@ -35,9 +32,6 @@ protected:
 	bool nativeEventFilter(const QByteArray& eventType, void* message, long* result) override;
 #endif
 	void resizeEvent(QResizeEvent* event) override;
-
-private slots:
-	void onSliderMoved(int value);
 
 signals:
 	void sig_OpenFile(const QStringList& fileList);
