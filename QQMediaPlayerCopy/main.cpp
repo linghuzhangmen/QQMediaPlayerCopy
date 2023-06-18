@@ -16,16 +16,34 @@ VS Build :  x64
 #include <QtWidgets/QApplication>
 #include <string>
 #include <QTranslator>
+#include <windows.h>
+#include <QMessageBox>
+#include "CDefer.h"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
+    HRESULT hr = CoInitialize(NULL);
+    if (FAILED(hr))
+    {
+        QMessageBox::critical(NULL, "Error", "CoInitialize Failed");
+        return -1;
+    }
+
+    DEFER([]() { 
+        CoUninitialize();
+    });
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)) && defined(_WIN32)
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(
+        Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
+
     QApplication a(argc, argv);
 
     a.setWindowIcon(QIcon(":/resources/logo.png"));
 
-    //Translation_zh_Hans.qm
     QTranslator* trans = new QTranslator();
 
     //注意路径的反斜线，翻译文件加载错误将不会翻译

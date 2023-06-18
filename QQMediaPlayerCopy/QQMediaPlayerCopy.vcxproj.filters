@@ -73,12 +73,18 @@
     <ClCompile Include="CNetStreamDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CDefer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CDefer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
