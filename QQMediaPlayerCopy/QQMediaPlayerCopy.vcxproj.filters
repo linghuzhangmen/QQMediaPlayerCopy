@@ -79,6 +79,9 @@
     <ClCompile Include="CFrameLessWidgetBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AboutDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonUtils.h">
@@ -134,6 +137,9 @@
     <QtMoc Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="AboutDlg.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="Translation_zh_Hans.ts">
@@ -142,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="CNetStreamDlg.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AboutDlg.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

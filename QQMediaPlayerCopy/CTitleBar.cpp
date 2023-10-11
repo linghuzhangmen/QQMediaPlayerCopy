@@ -11,6 +11,7 @@
 #include <QStandardPaths>
 #include <QFileDialog>
 #include "CNetStreamDlg.h"
+#include "AboutDlg.h"
 
 #include <qt_windows.h>
 #pragma comment(lib, "user32.lib")
@@ -295,7 +296,8 @@ void CTitleBar::openNetStream()
 
 void CTitleBar::about()
 {
-	QMessageBox::information(this, tr("tips"), tr("Qt libvlc mediaplayer"));
+	AboutDlg dlg;
+	dlg.exec();
 }
 
 void CTitleBar::exit()

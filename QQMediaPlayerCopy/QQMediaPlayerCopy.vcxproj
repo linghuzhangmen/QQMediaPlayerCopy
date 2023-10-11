@@ -145,6 +145,7 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="CDefer.cpp" />
     <ClCompile Include="CFrameLessWidgetBase.cpp" />
     <ClCompile Include="CNetStreamDlg.cpp" />
@@ -166,6 +167,7 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CNetStreamDlg.h" />
+    <QtMoc Include="AboutDlg.h" />
     <ClInclude Include="CDefer.h" />
     <ClInclude Include="CFrameLessWidgetBase.h" />
     <ClInclude Include="CommonUtils.h" />
@@ -189,6 +191,7 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
     </QtTranslation>
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="AboutDlg.ui" />
     <QtUic Include="CNetStreamDlg.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
