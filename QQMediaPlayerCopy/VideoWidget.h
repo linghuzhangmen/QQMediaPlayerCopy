@@ -33,6 +33,12 @@ protected:
 #endif
 	void resizeEvent(QResizeEvent* event) override;
 
+	void dragEnterEvent(QDragEnterEvent* event) override;
+	void dropEvent(QDropEvent* event) override;
+
+private:
+	bool isVideoFile(const QString& filePath);
+
 signals:
 	void sig_OpenFile(const QStringList& fileList);
 	void sig_OpenFloder(QString path);

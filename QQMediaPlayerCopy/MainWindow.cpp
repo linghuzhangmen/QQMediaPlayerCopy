@@ -13,6 +13,8 @@
 
 using namespace std;
 
+const wchar_t* MAIN_TITLE_TEXT = L"qt_media_plyaer_ex";
+
 BOOL CALLBACK EnumVLC(HWND hwnd, LPARAM lParam)
 {
 	TCHAR szTitle[1024];
@@ -30,7 +32,7 @@ BOOL CALLBACK EnumVLC(HWND hwnd, LPARAM lParam)
 
 void CALLBACK TimeProc(HWND hwnd, UINT msg, UINT_PTR id, DWORD time)
 {
-	HWND vlcHwnd = FindWindowEx(NULL, NULL, NULL, L"vlcmain");
+	HWND vlcHwnd = FindWindowEx(NULL, NULL, NULL, MAIN_TITLE_TEXT);
 
 	if (vlcHwnd)
 	{
@@ -38,17 +40,11 @@ void CALLBACK TimeProc(HWND hwnd, UINT msg, UINT_PTR id, DWORD time)
 	}
 }
 
-//防止中文乱码
-string qstr2str(const QString& qstr)
-{
-	QByteArray cdata = qstr.toLocal8Bit();
-	return string(cdata);
-}
-
 CMainWindow::CMainWindow(QWidget* parent)
-	: QWidget(parent)
+	: CFrameLessWidgetBase(parent)
 {
-	this->setWindowTitle("vlcmain");
+	QString main_title = QString::fromStdWString(MAIN_TITLE_TEXT);
+	this->setWindowTitle(main_title);
 	setMouseTracking(true);
 
 	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint);
@@ -169,6 +165,11 @@ void CMainWindow::on_openFile(const QStringList& fileList)
 	{
 		QMessageBox::information(this, tr("Warn"), tr("can't play this video file"));
 		return;
+	}
+
+	if (fileList.size() > 0)
+	{
+		m_pPlaylistWidget->show();
 	}
 
 	SetTimer(NULL, 1, 300, TimeProc);
@@ -340,7 +341,6 @@ void CMainWindow::keyPressEvent(QKeyEvent* event)
 
 void CMainWindow::mouseMoveEvent(QMouseEvent* event)
 {
-	mouse_moved_ = true;
 	mouse_last_moved_pos_ = QCursor::pos();
 
 	if (m_pTimer && !m_pTimer->isActive())
@@ -363,134 +363,6 @@ void CMainWindow::mouseMoveEvent(QMouseEvent* event)
 			m_pVideoWidget->showTopWidget(false);
 		}
 	}
-
-	/*********************************窗口拉伸*********************************/
-	//最大化状态时不能拉伸
-	if (isMaximized())
-	{
-		return;
-	}
-	//根据位置设置鼠标样式
-	SetMouseCursor(event->pos().x(), event->pos().y());
-
-	if ((event->buttons() == Qt::LeftButton) && left_button_pressed_)
-	{
-		QPoint point_offset = event->globalPos() - last_position_;
-		if (mouse_press_region_ == kMousePositionMid)
-		{
-			if (m_isMiniMode)
-			{
-				// 迷你模式可移动窗口
-				setCursor(Qt::ArrowCursor);
-				move(point_offset + last_point_);
-			}
-		}
-		else
-		{
-			QRect rect = geometry();
-			switch (mouse_press_region_)
-			{
-			case kMousePositionLeftTop:
-				rect.setTopLeft(rect.topLeft() + point_offset);
-				break;
-			case kMousePositionTop:
-				rect.setTop(rect.top() + point_offset.y());
-				break;
-			case kMousePositionRightTop:
-				rect.setTopRight(rect.topRight() + point_offset);
-				break;
-			case kMousePositionRight:
-				rect.setRight(rect.right() + point_offset.x());
-				break;
-			case kMousePositionRightButtom:
-				rect.setBottomRight(rect.bottomRight() + point_offset);
-				break;
-			case kMousePositionButtom:
-				rect.setBottom(rect.bottom() + point_offset.y());
-				break;
-			case kMousePositionLeftButtom:
-				rect.setBottomLeft(rect.bottomLeft() + point_offset);
-				break;
-			case kMousePositionLeft:
-				rect.setLeft(rect.left() + point_offset.x());
-				break;
-			default:
-				break;
-			}
-			setGeometry(rect);
-			last_position_ = event->globalPos();
-		}
-	}
-	/******************************************************************/
 }
 
-void CMainWindow::mouseReleaseEvent(QMouseEvent* event)
-{
-	left_button_pressed_ = false;
-}
 
-void CMainWindow::mousePressEvent(QMouseEvent* event)
-{
-	if (event->buttons() == Qt::LeftButton) {
-		left_button_pressed_ = true;
-		last_point_ = pos();
-		last_position_ = event->globalPos();
-		mouse_press_region_ = GetMouseRegion(event->pos().x(), event->pos().y());
-	}
-}
-
-void CMainWindow::SetMouseCursor(int x, int y)
-{
-	Qt::CursorShape cursor;
-	int region = GetMouseRegion(x, y);
-	switch (region)
-	{
-	case kMousePositionLeftTop:
-	case kMousePositionRightButtom:
-		cursor = Qt::SizeFDiagCursor; break;
-	case kMousePositionRightTop:
-	case kMousePositionLeftButtom:
-		cursor = Qt::SizeBDiagCursor; break;
-	case kMousePositionLeft:
-	case kMousePositionRight:
-		cursor = Qt::SizeHorCursor; break;
-	case kMousePositionTop:
-	case kMousePositionButtom:
-		cursor = Qt::SizeVerCursor; break;
-	case kMousePositionMid:
-		cursor = Qt::ArrowCursor; break;
-	default:
-		break;
-	}
-	setCursor(cursor);
-}
-
-int CMainWindow::GetMouseRegion(int x, int y)
-{
-	int region_x = 0, region_y = 0;
-	if (x < kMouseRegionLeft)
-	{
-		region_x = 1;
-	}
-	else if (x > (width() - kMouseRegionRight))
-	{
-		region_x = 3;
-	}
-	else
-	{
-		region_x = 2;
-	}
-	if (y < kMouseRegionTop)
-	{
-		region_y = 1;
-	}
-	else if (y > (height() - kMouseRegionButtom))
-	{
-		region_y = 3;
-	}
-	else
-	{
-		region_y = 2;
-	}
-	return region_y * 10 + region_x;
-}

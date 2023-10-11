@@ -4,31 +4,31 @@
 <context>
     <name>CMainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="64"/>
-        <location filename="MainWindow.cpp" line="70"/>
-        <location filename="MainWindow.cpp" line="170"/>
-        <location filename="MainWindow.cpp" line="274"/>
+        <location filename="MainWindow.cpp" line="60"/>
+        <location filename="MainWindow.cpp" line="66"/>
+        <location filename="MainWindow.cpp" line="166"/>
+        <location filename="MainWindow.cpp" line="275"/>
         <source>Warn</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="65"/>
+        <location filename="MainWindow.cpp" line="61"/>
         <source>libvlc_new failed</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="138"/>
+        <location filename="MainWindow.cpp" line="134"/>
         <source>warn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="139"/>
+        <location filename="MainWindow.cpp" line="135"/>
         <source>Do you want to end player?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="170"/>
-        <location filename="MainWindow.cpp" line="274"/>
+        <location filename="MainWindow.cpp" line="166"/>
+        <location filename="MainWindow.cpp" line="275"/>
         <source>can&apos;t play this video file</source>
         <translation>不支持该视频文件的播放</translation>
     </message>
@@ -37,7 +37,7 @@
         <translation type="vanished">提示</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="71"/>
+        <location filename="MainWindow.cpp" line="67"/>
         <source>libvlc_media_player_new failed</source>
         <translation></translation>
     </message>

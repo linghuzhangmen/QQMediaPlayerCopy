@@ -8,6 +8,9 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <iostream>
+#include <QDragEnterEvent>
+#include <QMimeData>
+#include <QFileInfo>
 
 using namespace std;
 
@@ -20,6 +23,7 @@ VideoWidget::VideoWidget(QWidget* p) :
 	qApp->installNativeEventFilter(this);
 
 	setMouseTracking(true);
+	setAcceptDrops(true);
 
 	//设置渐变色
 	this->setStyleSheet("QWidget{\
@@ -82,6 +86,41 @@ void VideoWidget::resizeEvent(QResizeEvent* event)
 	m_pTopWidget->show();
 }
 
+void VideoWidget::dragEnterEvent(QDragEnterEvent* event)
+{
+	if (event->mimeData()->hasFormat("text/uri-list")) {
+		event->acceptProposedAction();
+	}
+}
+
+// 注意windows下如果使用管理员权限，Qt的拖拽功能将被禁止
+void VideoWidget::dropEvent(QDropEvent* event)
+{
+	QList<QUrl> urls = event->mimeData()->urls();
+	if (urls.isEmpty())
+		return;
+
+	QStringList video_list;
+
+	// 遍历 URL 列表
+	for (const QUrl& url : urls) 
+	{
+		// 将 URL 转换为本地文件路径
+		QString filePath = url.toLocalFile();
+		if (isVideoFile(filePath))
+		{
+			video_list.append(filePath);
+		}
+	}
+
+	if (video_list.size() < 1)
+	{
+		return;
+	}
+
+	emit sig_OpenFile(video_list);
+}
+
 #if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
 bool VideoWidget::nativeEventFilter(const QByteArray& eventType, void* message, qintptr* result)
 #else
@@ -99,4 +138,19 @@ bool VideoWidget::nativeEventFilter(const QByteArray& eventType, void* message, 
 	}
 
 	return false;
+}
+
+bool VideoWidget::isVideoFile(const QString& filePath)
+{
+	// 创建一个 QFileInfo 对象，它提供了关于文件的信息
+	QFileInfo fileInfo(filePath);
+
+	// 获取文件的后缀
+	QString fileSuffix = fileInfo.suffix().toLower();
+
+	// 定义一个包含常见视频文件后缀的字符串列表
+	QStringList videoSuffixes = { "mp4", "mkv", "avi", "mov", "flv", "wmv" };
+
+	// 检查文件后缀是否在视频后缀列表中
+	return videoSuffixes.contains(fileSuffix);
 }

@@ -13,7 +13,6 @@
 #include <QPushButton>
 #include "CVolumeSliderDialog.h"
 
-
 class CVolumeButton : public QPushButton
 {
 	Q_OBJECT
@@ -29,15 +28,14 @@ public:
 
 	void setMute(bool mute) { m_isMute = mute; }
 
-signals:
-	void sig_VolumeValue(int value);
-
-protected:
+private:
 	void paintEvent(QPaintEvent* event) override;
-	void enterEvent(QEnterEvent* event) override;
-	//void leaveEvent(QEvent* event) override;
+	void enterEvent(QEvent* event) override;  // Qt6.5.3把参数又改回了Qt5的QEvent
 	void mousePressEvent(QMouseEvent* event) override;
 	void timerEvent(QTimerEvent* event) override;
+
+signals:
+	void sig_VolumeValue(int value);
 
 private:
 	bool m_isMute = false;  //是否静音
