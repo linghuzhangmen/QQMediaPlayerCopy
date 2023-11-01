@@ -31,7 +31,8 @@
 
 使用C++ Qt开发的Windows端视频播放器，界面高仿QQ影音, 如下图
 
-![主界面](https://user-images.githubusercontent.com/42860254/226182627-fc33cb3c-51a8-4922-b15d-c1505924bf49.png)
+![image](https://github.com/linghuzhangmen/QQMediaPlayerCopy/assets/42860254/18cc071c-0948-44ec-a9a3-ee7852bd8479)
+
 
 
 <br/>
