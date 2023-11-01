@@ -89,21 +89,21 @@ void CPlayCtrlBar::InitData()
 	m_pTimeSlider->setFixedHeight(TIME_SLIDER_HEIGHT);
 	m_pTimeSlider->hide();
 
-	QString slider_qss = "QSlider{background:transparent; \
-		border-style: outset; \
-		border-style: outset;  \
-			border-radius: 10px;} \
-		QSlider::groove:horizontal{ \
-			height: 12px; \
-			background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4); \
-			margin: 2px 0} \
-		QSlider::handle:horizontal { \
-			background: QRadialGradient(cx:0, cy:0, radius: 1, fx:0.5, fy:0.5, stop:0 white, stop:1 green); \
-			width: 16px; \
-			height: 16px; \
-			margin: -5px 6px -5px 6px; \
-			border-radius:11px;  \
-		border: 3px solid #ffffff;}";
+	QString slider_qss = R"(QSlider{background:transparent; 
+		border-style: outset; 
+		border-style: outset;  
+			border-radius: 10px;} 
+		QSlider::groove:horizontal{ 
+			height: 12px; 
+			background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4); 
+			margin: 2px 0} 
+		QSlider::handle:horizontal { 
+			background: QRadialGradient(cx:0, cy:0, radius: 1, fx:0.5, fy:0.5, stop:0 white, stop:1 green); 
+			width: 16px; 
+			height: 16px; 
+			margin: -5px 6px -5px 6px; 
+			border-radius:11px;  
+		border: 3px solid #ffffff;})";
 
 	m_pTimeSlider->setStyleSheet(slider_qss);
 
@@ -121,15 +121,29 @@ void CPlayCtrlBar::InitData()
 
 	m_pSpeedButton = new QPushButton(this);
 	m_pSpeedButton->setText(tr("1.0speed"));
-	m_pSpeedButton->setFixedSize(40, 32);
+	m_pSpeedButton->setFixedSize(62, 32);
 
-	m_pSpeedButton->setStyleSheet("QPushButton{ \
-		background-color:rgb(64, 70, 80);color:white;border:none; \
-		text-align:right;font-size: 12px; \
-		border-radius:6px;} \
-		QPushButton:hover{background-color:rgb(99, 99, 99);border:none;} \
-		QPushButton:pressed{border:none;} \
-		QPushButton::menu-indicator{image:none}");
+	QString speedbtn_qss = R"(
+		QPushButton{ 
+			background-color:rgb(64, 70, 80);
+			color:white;
+			/*border:none; */
+			font-size: 14px; 
+			border-radius:6px;
+			text-align: center;
+			padding-left: 15px;
+		} 
+
+		QPushButton:hover{
+			background-color:rgb(99, 99, 99);
+			/*border:none;*/
+		} 
+
+		QPushButton:pressed{border:none;} 
+		QPushButton::menu-indicator{image:none}
+	)";
+
+	m_pSpeedButton->setStyleSheet(speedbtn_qss);
 
 	QMenu* pMenu = new QMenu(this);
 	//pMenu->setFixedWidth(80);
