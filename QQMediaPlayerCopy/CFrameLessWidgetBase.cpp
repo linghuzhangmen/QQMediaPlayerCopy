@@ -15,7 +15,7 @@ CFrameLessWidgetBase::~CFrameLessWidgetBase()
 {
 }
 
-bool CFrameLessWidgetBase::nativeEvent(const QByteArray& eventType, void* message, long* result)
+bool CFrameLessWidgetBase::nativeEvent(const QByteArray& eventType, void* message, qintptr* result)
 {
 	MSG* msg = static_cast<MSG*>(message);
 

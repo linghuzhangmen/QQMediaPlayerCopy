@@ -30,7 +30,7 @@ public:
 
 private:
 	void paintEvent(QPaintEvent* event) override;
-	void enterEvent(QEvent* event) override;  // Qt6.5.3把参数又改回了Qt5的QEvent
+	void enterEvent(QEnterEvent* event) override;  // Qt6.5.2
 	void mousePressEvent(QMouseEvent* event) override;
 	void timerEvent(QTimerEvent* event) override;
 

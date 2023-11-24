@@ -184,37 +184,37 @@
         <translation>倍速</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="158"/>
+        <location filename="CPlayCtrlBar.cpp" line="150"/>
         <source>0.5 speed</source>
         <translation>0.5x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="159"/>
+        <location filename="CPlayCtrlBar.cpp" line="151"/>
         <source>0.75 speed</source>
         <translation>0.75x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="160"/>
+        <location filename="CPlayCtrlBar.cpp" line="152"/>
         <source>1.0 speed</source>
         <translation>1.0x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="161"/>
+        <location filename="CPlayCtrlBar.cpp" line="153"/>
         <source>1.25 speed</source>
         <translation>1.25x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="162"/>
+        <location filename="CPlayCtrlBar.cpp" line="154"/>
         <source>1.5 speed</source>
         <translation>1.5x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="163"/>
+        <location filename="CPlayCtrlBar.cpp" line="155"/>
         <source>1.75 speed</source>
         <translation>1.75x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="164"/>
+        <location filename="CPlayCtrlBar.cpp" line="156"/>
         <source>2.0 speed</source>
         <translation>2.0x</translation>
     </message>

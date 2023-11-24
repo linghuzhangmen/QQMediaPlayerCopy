@@ -29,7 +29,7 @@ void CVolumeButton::paintEvent(QPaintEvent*)
 	p.drawControl(QStyle::CE_PushButton, option);
 }
 
-void CVolumeButton::enterEvent(QEvent* event)
+void CVolumeButton::enterEvent(QEnterEvent* event)
 {
 	if (!m_pVolumeSliderDlg)
 		m_pVolumeSliderDlg = new CVolumeSliderDialog(this);
