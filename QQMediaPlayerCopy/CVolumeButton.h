@@ -30,7 +30,7 @@ public:
 
 private:
 	void paintEvent(QPaintEvent* event) override;
-	void enterEvent(QEnterEvent* event) override;  // Qt6.5.2
+	void enterEvent(QEnterEvent* event) override;  
 	void mousePressEvent(QMouseEvent* event) override;
 	void timerEvent(QTimerEvent* event) override;
 

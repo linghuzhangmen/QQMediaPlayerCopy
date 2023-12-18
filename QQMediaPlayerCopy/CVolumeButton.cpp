@@ -45,8 +45,6 @@ void CVolumeButton::enterEvent(QEnterEvent* event)
 	m_pVolumeSliderDlg->show();
 	startTimer(250);
 
-	//setStyleSheet("QPushButton{border-image:url(:/ButtonPopup/picture/volume.png)}");
-
 	connect(m_pVolumeSliderDlg, &CVolumeSliderDialog::sig_SliderValueChanged, [=](int value) {
 		emit sig_VolumeValue(value);
 		});

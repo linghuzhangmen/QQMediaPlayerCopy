@@ -2,7 +2,7 @@
 
 Qt libvlc 视频播放器器项目
 
-开发环境  ： win10/win11 vs2022 Qt6.4 x64
+开发环境  ： win10/win11 vs2022 Qt6.5 x64
 VS Build :  x64
 
 

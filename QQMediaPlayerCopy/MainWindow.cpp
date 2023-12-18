@@ -96,7 +96,7 @@ void CMainWindow::InitUI()
 	pVLay->setContentsMargins(0, 0, 0, 0);
 
 	m_pPlaylistWidget->hide();  //播放列表默认隐藏
-	this->resize(800, 600);
+	this->resize(830, 640);
 
 	connect(m_pTitleBar, &CTitleBar::sig_close, this, &CMainWindow::On_Close);
 	connect(m_pTitleBar, &CTitleBar::sig_ShowFullFcreen, this, &CMainWindow::On_ShowFullScreen);
@@ -108,6 +108,7 @@ void CMainWindow::InitUI()
 	connect(m_pVideoWidget, &VideoWidget::sig_OpenPlaylist, this, &CMainWindow::On_openRightPlaylist);
 	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_fullScreen, this, &CMainWindow::On_ShowFullScreen);
 	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_playRate, this, &CMainWindow::OnSetPlayRate);
+
 	connect(m_pPlaylistWidget, &CPlayListWidget::sig_doubleClickFileName,
 		this,
 		&CMainWindow::OnPlay);

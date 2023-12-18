@@ -19,7 +19,6 @@ public:
 
 protected:
 	bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override;
-	//bool nativeEvent(const QByteArray& eventType, void* message, long* result) override;
 
 private:
 	int mouse_margin = 5;
