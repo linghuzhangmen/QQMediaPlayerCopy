@@ -61,11 +61,11 @@ main分支：使用libvlc为播放组件
 player_SDL分支：使用SDL FFmpeg做解码转换播放
 
 # 开发环境 
-main分支：win11 x64、vs2022  qt6.3
+main分支：win11 x64、vs2022  qt6.5.3
 <br/>
 player_SDL分支：win11/win10  vs2019 Qt5.15.2 x64
 <br/>
-VS2019 Qt开发环境的配置可以参考这篇博客：https://mingshiqiang.blog.csdn.net/article/details/108015209
+VS2019/VS2022 Qt开发环境的配置可以参考这篇博客：https://mingshiqiang.blog.csdn.net/article/details/108015209
 
 # 编译方法
 本项目只能进行x64编译，不支持x86编译
