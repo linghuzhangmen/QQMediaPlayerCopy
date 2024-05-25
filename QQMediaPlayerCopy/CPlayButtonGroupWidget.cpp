@@ -69,3 +69,19 @@ CPlayButtonGroupWidget::CPlayButtonGroupWidget(QWidget *parent)
 CPlayButtonGroupWidget::~CPlayButtonGroupWidget()
 {
 }
+
+void CPlayButtonGroupWidget::SetPlayButtonIcon(bool isPlay)
+{
+	if (isPlay)
+	{
+		m_pPlayButton->setStyleSheet("QPushButton{background-image:url(:/playCtrlBar/resources/playctrlBar/pause.svg);border:none;}"
+			"QPushButton:hover{background-color:rgb(99, 99, 99);background-image:url(:/playCtrlBar/resources/playctrlBar/pause_hover.svg);border:none;}"
+			"QPushButton:pressed{background-image:url(:/playCtrlBar/resources/playctrlBar/pause.svg);border:none;}");
+	}
+	else
+	{
+		m_pPlayButton->setStyleSheet("QPushButton{background-image:url(:/playCtrlBar/resources/playctrlBar/play.svg);border:none;}"
+			"QPushButton:hover{background-color:rgb(99, 99, 99);background-image:url(:/playCtrlBar/resources/playctrlBar/play_hover.svg);border:none;}"
+			"QPushButton:pressed{background-image:url(:/playCtrlBar/resources/playctrlBar/play.svg);border:none;}");
+	}
+}

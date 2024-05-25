@@ -21,20 +21,21 @@
 #include "CPlayListWidget.h"
 #include "CVlcKits.h"
 #include <memory>
-#include "CFrameLessWidgetBase.h"
+#include "CFramelessWindowBase.h"
 
-class CMainWindow : public CFrameLessWidgetBase
+
+class CMainWindow : public CFramelessWindowBase
 {
     Q_OBJECT
 
 public:
     CMainWindow(QWidget *parent = Q_NULLPTR);
+    ~CMainWindow();
 
 private:
     void InitUI();
 
 protected:
-	void resizeEvent(QResizeEvent* event) override;
 	void keyPressEvent(QKeyEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
     void mouseDoubleClickEvent(QMouseEvent* event) override;
@@ -51,6 +52,8 @@ protected slots:
     void OnUpdateTimeSlider(const int& value);
     void OnSetPlayRate(double rate);
     void OnPlay(const QString& fileName);
+    void On_PlayPause();
+    void On_Stop();
 
 private:
 	CTitleBar*       m_pTitleBar = nullptr;

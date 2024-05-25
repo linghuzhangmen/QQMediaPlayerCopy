@@ -55,31 +55,31 @@
 <context>
     <name>CMainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="60"/>
-        <location filename="MainWindow.cpp" line="66"/>
-        <location filename="MainWindow.cpp" line="166"/>
-        <location filename="MainWindow.cpp" line="275"/>
+        <location filename="MainWindow.cpp" line="57"/>
+        <location filename="MainWindow.cpp" line="63"/>
+        <location filename="MainWindow.cpp" line="160"/>
+        <location filename="MainWindow.cpp" line="271"/>
         <source>Warn</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="61"/>
+        <location filename="MainWindow.cpp" line="58"/>
         <source>libvlc_new failed</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="134"/>
+        <location filename="MainWindow.cpp" line="129"/>
         <source>warn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="135"/>
+        <location filename="MainWindow.cpp" line="130"/>
         <source>Do you want to end player?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="166"/>
-        <location filename="MainWindow.cpp" line="275"/>
+        <location filename="MainWindow.cpp" line="160"/>
+        <location filename="MainWindow.cpp" line="271"/>
         <source>can&apos;t play this video file</source>
         <translation>不支持该视频文件的播放</translation>
     </message>
@@ -88,7 +88,7 @@
         <translation type="vanished">提示</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="67"/>
+        <location filename="MainWindow.cpp" line="64"/>
         <source>libvlc_media_player_new failed</source>
         <translation></translation>
     </message>
@@ -178,43 +178,43 @@
 <context>
     <name>CPlayCtrlBar</name>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="123"/>
+        <location filename="CPlayCtrlBar.cpp" line="131"/>
         <source>1.0speed</source>
         <oldsource>speed</oldsource>
         <translation>倍速</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="150"/>
+        <location filename="CPlayCtrlBar.cpp" line="158"/>
         <source>0.5 speed</source>
         <translation>0.5x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="151"/>
+        <location filename="CPlayCtrlBar.cpp" line="159"/>
         <source>0.75 speed</source>
         <translation>0.75x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="152"/>
+        <location filename="CPlayCtrlBar.cpp" line="160"/>
         <source>1.0 speed</source>
         <translation>1.0x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="153"/>
+        <location filename="CPlayCtrlBar.cpp" line="161"/>
         <source>1.25 speed</source>
         <translation>1.25x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="154"/>
+        <location filename="CPlayCtrlBar.cpp" line="162"/>
         <source>1.5 speed</source>
         <translation>1.5x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="155"/>
+        <location filename="CPlayCtrlBar.cpp" line="163"/>
         <source>1.75 speed</source>
         <translation>1.75x</translation>
     </message>
     <message>
-        <location filename="CPlayCtrlBar.cpp" line="156"/>
+        <location filename="CPlayCtrlBar.cpp" line="164"/>
         <source>2.0 speed</source>
         <translation>2.0x</translation>
     </message>

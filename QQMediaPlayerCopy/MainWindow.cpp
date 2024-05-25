@@ -41,14 +41,11 @@ void CALLBACK TimeProc(HWND hwnd, UINT msg, UINT_PTR id, DWORD time)
 }
 
 CMainWindow::CMainWindow(QWidget* parent)
-	: CFrameLessWidgetBase(parent)
+	: CFramelessWindowBase(parent)
 {
 	QString main_title = QString::fromStdWString(MAIN_TITLE_TEXT);
 	this->setWindowTitle(main_title);
 	setMouseTracking(true);
-
-	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint);
-	setAttribute(Qt::WA_Hover);
 
 	m_pVlc.reset(new CVlcKits());
 
@@ -75,25 +72,34 @@ CMainWindow::CMainWindow(QWidget* parent)
 	InitUI();
 }
 
+CMainWindow::~CMainWindow()
+{
+}
+
 void CMainWindow::InitUI()
 {
-	QVBoxLayout* pVLay = new QVBoxLayout(this);
-	pVLay->setSpacing(0);
+	QWidget* pCentralWidget = new QWidget(this);
+	this->setCentralWidget(pCentralWidget);
 
-	m_pTitleBar = new CTitleBar(this);
-	m_pVideoWidget = new VideoWidget(this);
-	m_pPlayCtrlBar = new CPlayCtrlBar(this);
-	m_pPlaylistWidget = new CPlayListWidget(this);
+	QVBoxLayout* pMainVLay = new QVBoxLayout(pCentralWidget);
+	pMainVLay->setSpacing(0);
 
-	pVLay->addWidget(m_pTitleBar);
+	m_pTitleBar = new CTitleBar(pCentralWidget);
+	m_pVideoWidget = new VideoWidget(pCentralWidget);
+	m_pPlayCtrlBar = new CPlayCtrlBar(pCentralWidget);
+	m_pPlaylistWidget = new CPlayListWidget(pCentralWidget);
+
+	pMainVLay->addWidget(m_pTitleBar);
 
 	QHBoxLayout* pHLay = new QHBoxLayout;
 	pHLay->addWidget(m_pVideoWidget);
 	pHLay->addWidget(m_pPlaylistWidget);
-	pVLay->addLayout(pHLay);
+	pMainVLay->addLayout(pHLay);
 
-	pVLay->addWidget(m_pPlayCtrlBar);
-	pVLay->setContentsMargins(0, 0, 0, 0);
+	pMainVLay->addWidget(m_pPlayCtrlBar);
+	pMainVLay->setContentsMargins(0, 0, 0, 0);
+
+	pCentralWidget->setLayout(pMainVLay);
 
 	m_pPlaylistWidget->hide();  //播放列表默认隐藏
 	this->resize(830, 640);
@@ -106,26 +112,14 @@ void CMainWindow::InitUI()
 	connect(m_pVideoWidget, &VideoWidget::sig_OpenFile, this, &CMainWindow::on_openFile);
 	connect(m_pVideoWidget, &VideoWidget::sig_OpenUrl, this, &CMainWindow::on_openUrl);
 	connect(m_pVideoWidget, &VideoWidget::sig_OpenPlaylist, this, &CMainWindow::On_openRightPlaylist);
+	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_play, this, &CMainWindow::On_PlayPause);
+	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_stop, this, &CMainWindow::On_Stop);
 	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_fullScreen, this, &CMainWindow::On_ShowFullScreen);
 	connect(m_pPlayCtrlBar, &CPlayCtrlBar::sig_playRate, this, &CMainWindow::OnSetPlayRate);
 
 	connect(m_pPlaylistWidget, &CPlayListWidget::sig_doubleClickFileName,
 		this,
 		&CMainWindow::OnPlay);
-}
-
-void CMainWindow::resizeEvent(QResizeEvent* event)
-{
-	if (!this->isMaximized() && !this->isFullScreen())
-	{
-		QScreen* pScreen = qApp->primaryScreen();
-		QRect appRect = pScreen->availableGeometry();
-		int sw = appRect.width();
-		int sh = appRect.height();
-
-		int thisW = this->width();
-		int thisH = this->height();
-	}
 }
 
 void CMainWindow::On_Close()
@@ -138,7 +132,6 @@ void CMainWindow::On_Close()
 
 		if (rb == QMessageBox::Yes)
 		{
-
 			close();
 		}
 	}
@@ -182,6 +175,7 @@ void CMainWindow::on_openFile(const QStringList& fileList)
 	fileName = fileName.mid(index1 + 1);
 	m_pTitleBar->setFileNameLabelText(fileName);
 	m_isPlay = true;
+	m_pPlayCtrlBar->SetPlayButtonIcon(m_isPlay);
 
 	m_pPlayCtrlBar->showTimeLabel(true);
 	
@@ -197,6 +191,7 @@ void CMainWindow::on_openUrl(const QString& url)
 	m_pVlc->play(url, (void*)(m_pVideoWidget->winId()));
 
 	m_isPlay = true;
+	m_pPlayCtrlBar->SetPlayButtonIcon(m_isPlay);
 
 	m_pPlayCtrlBar->showTimeLabel(true);
 
@@ -276,6 +271,28 @@ void CMainWindow::OnPlay(const QString& fileName)
 		QMessageBox::information(this, tr("Warn"), tr("can't play this video file"));
 		return;
 	}
+}
+
+void CMainWindow::On_PlayPause()
+{
+	if (m_isPlay)
+	{
+		m_pVlc->pause();
+	}
+	else
+	{
+		m_pVlc->play();
+	}
+
+	m_isPlay = !m_isPlay;
+	m_pPlayCtrlBar->SetPlayButtonIcon(m_isPlay);
+}
+
+void CMainWindow::On_Stop()
+{
+	m_pVlc->stop();
+	m_isPlay = false;
+	m_pPlayCtrlBar->SetPlayButtonIcon(m_isPlay);
 }
 
 void CMainWindow::On_ShowFullScreen()

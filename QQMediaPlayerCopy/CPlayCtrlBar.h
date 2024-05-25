@@ -21,8 +21,10 @@ public:
 	void setSliderValue(qint64 value);
 	void showSlider(bool flag);
 
+	void SetPlayButtonIcon(bool isPlay);
+
 private:
-	void InitData();
+	void InitUI();
 	void RestoreUI();
 
 private slots:

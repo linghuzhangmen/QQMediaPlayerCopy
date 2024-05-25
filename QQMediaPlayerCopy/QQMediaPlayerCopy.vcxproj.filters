@@ -76,10 +76,10 @@
     <ClCompile Include="CDefer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CFrameLessWidgetBase.cpp">
+    <ClCompile Include="AboutDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AboutDlg.cpp">
+    <ClCompile Include="CFramelessWindowBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,7 +93,7 @@
     <ClInclude Include="CDefer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CFrameLessWidgetBase.h">
+    <ClInclude Include="CFramelessWindowBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

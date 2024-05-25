@@ -147,7 +147,7 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
   <ItemGroup>
     <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="CDefer.cpp" />
-    <ClCompile Include="CFrameLessWidgetBase.cpp" />
+    <ClCompile Include="CFramelessWindowBase.cpp" />
     <ClCompile Include="CNetStreamDlg.cpp" />
     <ClCompile Include="COpenFileButton.cpp" />
     <ClCompile Include="CPlayButtonGroupWidget.cpp" />
@@ -169,7 +169,7 @@ XCOPY $(SolutionDir)QQMediaPlayerCopy\sdk_package\ffmpeg_sdk_win64\bin\*.dll $(T
     <QtMoc Include="CNetStreamDlg.h" />
     <QtMoc Include="AboutDlg.h" />
     <ClInclude Include="CDefer.h" />
-    <ClInclude Include="CFrameLessWidgetBase.h" />
+    <ClInclude Include="CFramelessWindowBase.h" />
     <ClInclude Include="CommonUtils.h" />
     <QtMoc Include="CVolumeButton.h" />
     <QtMoc Include="CVolumeSliderDialog.h" />

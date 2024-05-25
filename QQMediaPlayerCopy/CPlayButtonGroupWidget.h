@@ -12,6 +12,8 @@ public:
 	CPlayButtonGroupWidget(QWidget *parent = Q_NULLPTR);
 	~CPlayButtonGroupWidget();
 
+	void SetPlayButtonIcon(bool isPlay);
+
 signals:
 	void sig_play();
 	void sig_stop();

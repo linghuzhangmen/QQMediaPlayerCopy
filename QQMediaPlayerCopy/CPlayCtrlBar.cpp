@@ -18,7 +18,7 @@ CPlayCtrlBar::CPlayCtrlBar(QWidget *parent)
 	setFixedHeight(67);
 	setStyleSheet("QWidget{background-color:rgb(17,17,17);}");
 
-	InitData();
+	InitUI();
 }
 
 CPlayCtrlBar::~CPlayCtrlBar()
@@ -83,7 +83,15 @@ void CPlayCtrlBar::showSlider(bool flag)
 	m_pTimeSlider->show();
 }
 
-void CPlayCtrlBar::InitData()
+void CPlayCtrlBar::SetPlayButtonIcon(bool isPlay)
+{
+	if (m_pPlayButtonGroupWidget)
+	{
+		m_pPlayButtonGroupWidget->SetPlayButtonIcon(isPlay);
+	}
+}
+
+void CPlayCtrlBar::InitUI()
 {
 	m_pTimeSlider = new CTimeSlider(this);
 	m_pTimeSlider->setFixedHeight(TIME_SLIDER_HEIGHT);
